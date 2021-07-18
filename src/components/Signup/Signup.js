@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from '../Utils/Axios';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from 'validator';
 import './Signup.scss';
 
@@ -6,50 +7,261 @@ export class Signup extends Component {
   state = {
     firstName: '',
     lastName: '',
-    username: '',
+    userName: '',
     email: '',
     password: '',
     confirmPassword: '',
-  }
-
-
+    firstNameError: '',
+    lastNameError: '',
+    userNameError: '',
+    emailError: '',
+    passwordError: '',
+    confirmPasswordError: '',
+    isButtonDisabled: true,
+    firstNameOnFocus: false,
+    lastNameOnFocus: false,
+    emailOnFocus: false,
+    userNameOnFocus: false,
+    passwordOnFocus: false,
+    onConfirmPasswordOnFocus: false,
+  };
 
   handleOnChange = (event) => {
-
     this.setState(
       {
         [event.target.name]: event.target.value,
       },
-      console.log(this.state, 'hello')
+      () => {
+        if (
+          event.target.name === 'firstName' ||
+          event.target.name === 'lastName'
+        ) {
+          this.handleFirstNameAndLastNameInput(event);
+        }
+        if (event.target.name === 'userName') {
+          this.handleUsernameInput();
+        }
+        if (event.target.name === 'password') {
+          this.handlePasswordInput();
+        }
+        if (event.target.name === 'email') {
+          this.handleEmailInput();
+        }
+        if (event.target.name === 'password') {
+          this.handlePasswordInput();
+        }
+        if (event.target.name === 'confirmPassword') {
+          if (this.state.password !== this.state.confirmPassword) {
+            this.setState({
+              confirmPasswordError: 'Passwords do not match',
+              isButtonDisabled: true,
+            });
+          } else {
+            this.setState({
+              confirmPasswordError: '',
+            });
+          }
+        }
+      }
     );
   };
 
+  handleFirstNameAndLastNameInput = (event) => {
+    if (this.state[event.target.name].length > 0) {
+      if (isAlpha(this.state[event.target.name])) {
+        this.setState({
+          //bracket notation/dynamic use of code for first and last name reset error
+          [`${event.target.name}Error`]: '',
+        });
+      } else {
+        //bracket notation/dynamic use of code set error
+        this.setState({
+          [`${event.target.name}Error`]: `${event.target.placeholder} can only have alphabet`,
+          isButtonDisabled: true,
+        });
+      }
+    } else {
+      //bracket notation/dynamic use of code to set other error
+      this.setState({
+        [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`,
+      });
+    }
+  };
 
+  handleUsernameInput = () => {
+    if (this.state.userName.length === 0) {
+      this.setState({
+        userNameError: 'User name cannot be empty',
+        isButtonDisabled: true,
+      });
+    } else {
+      if (isAlphanumeric(this.state.userName)) {
+        this.setState({
+          userNameError: '',
+        });
+      } else {
+        this.setState({
+          userNameError: 'User name cannot contain special characters',
+          isButtonDisabled: true,
+        });
+      }
+    }
+  };
 
+  handleEmailInput = () => {
+    if (this.state.email.length === 0) {
+      this.setState({
+        emailError: 'Email cannot be empty',
+        isButtonDisabled: true,
+      });
+    } else {
+      if (isEmail(this.state.email)) {
+        this.setState({
+          emailError: '',
+        });
+      } else {
+        this.setState({
+          emailError: 'Please enter a valid email',
+          isButtonDisabled: true,
+        });
+      }
+    }
+  };
+  handlePasswordInput = () => {
+    console.log('password is working');
+    if (this.state.onConfirmPasswordOnFocus) {
+      if (this.state.password !== this.state.confirmPassword) {
+        this.setState({
+          confirmPasswordError: 'Password does not match',
+          isButtonDisabled: true,
+        });
+      } else {
+        this.setState({
+          confirmPasswordError: '',
+        });
+      }
+    }
+    if (this.state.password.length === 0) {
+      this.setState({
+        passwordError: 'Password cannot be empty',
+        isButtonDisabled: true,
+      });
+    } else {
+      if (isStrongPassword(this.state.password)) {
+        this.setState({
+          passwordError: '',
+        });
+      } else {
+        this.setState({
+          passwordError:
+            'Passwords must be at least 8 characters long, and contain at least one of the following: uppercase letter, lowercase letter, special character and number',
+          isButtonDisabled: true,
+        });
+      }
+    }
+  };
+
+  handleOnBlur = (event) => {
+    if (this.state[event.target.name].length === 0) {
+      this.setState({
+        [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`,
+      });
+    }
+  };
+  
+  handleInputOnFocus = (event) => {
+    if (!this.state[`${event.target.name}OnFocus`]) {
+      this.setState({
+        [`${event.target.name}OnFocus`]: true,
+      });
+    }
+  };
+  
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state);
+    if (prevState.isButtonDisabled === true) {
+      if (
+        this.state.firstNameOnFocus &&
+        this.state.lastNameOnFocus &&
+        this.state.emailOnFocus &&
+        this.state.userNameOnFocus &&
+        this.state.passwordOnFocus &&
+        this.state.confirmPasswordOnFocus
+      ) {
+        if (
+          this.state.firstNameError.length === 0 &&
+          this.state.lastNameError.length === 0 &&
+          this.state.userNameError.length === 0 &&
+          this.state.emailError.length === 0 &&
+          this.state.passwordError.length === 0 &&
+          this.state.confirmPasswordError.length === 0 &&
+          this.state.password === this.state.confirmPassword
+        ) {
+          this.setState({
+            isButtonDisabled: false,
+          });
+        }
+      }
+    }
+  }
+
+  handleOnSubmit = async (event) => {
+    console.log('submitted');
+    event.preventDefault();
+    console.log('submitted');
+    try {
+      let userInputObj = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        userName: this.state.userName,
+        password: this.state.password,
+      };
+      console.log(userInputObj);
+      let success = await Axios.post("/api/user/sign-up", userInputObj);
+      console.log(success);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
   render() {
+    const {
+      firstNameError,
+      lastNameError,
+      userNameError,
+      emailError,
+      passwordError,
+      confirmPasswordError,
+    } = this.state;
     return (
       <div>
         <div className="signup__container">
           <div className="container__child signup__form">
-          <h1 >Create an account</h1>
-          <br />
-          <h2 className="">Sign up and have fun!</h2>
-          <br />
-          <br />
-            <form action="#">
+            <h1>Create an account</h1>
+            <br />
+            <h2 className="">Sign up and have fun!</h2>
+            <br />
+            <br />
+            <form onSubmit={this.handleOnSubmit}>
               <div className="form-group">
                 <label>Firstname</label>
                 <input
                   className="form-control"
                   type="text"
                   name="firstName"
-                  id="firstname"
-                  placeholder="james.bond"
+                  placeholder="First name"
+                  id="firstName"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
+                  autoFocus
                 />
+              </div>
+              <div className="errorMessage">
+                {firstNameError && firstNameError}
               </div>
               <div className="warning">empty</div>
               <div className="form-group">
@@ -58,23 +270,33 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="lastName"
-                  id="lastname"
-                  placeholder="james.bond"
+                  placeholder="Last name"
+                  id="lastName"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
                 />
+              </div>
+              <div className="errorMessage">
+                {lastNameError && lastNameError}
               </div>
               <div className="form-group">
                 <label>Username</label>
                 <input
                   className="form-control"
                   type="text"
-                  name="username"
+                  name="userName"
+                  placeholder="User name"
                   id="userName"
-                  placeholder="james.bond"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
                 />
+              </div>
+              <div className="errorMessage">
+                {userNameError && userNameError}
               </div>
               <div className="form-group">
                 <label>Email</label>
@@ -82,11 +304,16 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="email"
+                  placeholder="Email"
                   id="email"
-                  placeholder="james.bond@spectre.com"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
                 />
+              </div>
+              <div className="errorMessage">
+                {emailError && emailError}
               </div>
               <div className="form-group">
                 <label>Password</label>
@@ -94,23 +321,33 @@ export class Signup extends Component {
                   className="form-control"
                   type="password"
                   name="password"
+                  placeholder="Password"
                   id="password"
-                  placeholder="********"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
                 />
               </div>
+              <div className="errorMessage">
+                {passwordError && passwordError}
+              </div>
               <div className="form-group">
-                <label>Repeat Password</label>
+                <label>RepeatPassword</label>
                 <input
                   className="form-control"
                   type="password"
                   name="confirmPassword"
+                  placeholder="Confirm password"
                   id="confirmPassword"
-                  placeholder="********"
                   required
                   onChange={this.handleOnChange}
+                  onBlur={this.handleOnBlur}
+                  onFocus={this.handleInputOnFocus}
                 />
+              </div>
+              <div className="errorMessage">
+                {confirmPasswordError && confirmPasswordError}
               </div>
               <div className="m-t-lg">
                 <ul className="list-inline">
@@ -119,10 +356,8 @@ export class Signup extends Component {
                       className="btn btn--form"
                       type="submit"
                       value="Signup"
+                      disabled={this.state.isButtonDisabled}
                     />
-                  </li>
-                  <li>
-
                   </li>
                 </ul>
               </div>
