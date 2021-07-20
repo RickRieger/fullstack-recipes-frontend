@@ -22,7 +22,7 @@ export class Nav extends Component {
   render() {
     return (
       <>
-        <body>
+        
           <header>
             <nav>
               <Link to="/">
@@ -30,7 +30,11 @@ export class Nav extends Component {
               </Link>
               <ul className="nav-links">
                 <li>
-                  <NavLink activeClassName="selected" to="/sign-up">
+                  <NavLink 
+                  activeClassName="selected"
+                  to="/sign-up"
+                  onClick={this.handleOnClick}
+                  >
                     Sign up
                   </NavLink>
                 </li>
@@ -38,6 +42,7 @@ export class Nav extends Component {
                   <NavLink
                     activeStyle={{ borderBottom: '1px solid white' }}
                     to="/login"
+                    onClick={this.handleOnClick}
                   >
                     Login
                   </NavLink>
@@ -50,7 +55,7 @@ export class Nav extends Component {
               </div>
             </nav>
           </header>
-        </body>
+      
       </>
     );
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Axios from '../Utils/Axios';
+import Axios from "../utils/Axios";
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from 'validator';
+import { toast } from 'react-toastify';
+// import checkIfUserIsAuth from "../utils/checkIsUserIsAuth";
 import './Signup.scss';
 
 export class Signup extends Component {
@@ -128,7 +130,6 @@ export class Signup extends Component {
     }
   };
   handlePasswordInput = () => {
-    console.log('password is working');
     if (this.state.onConfirmPasswordOnFocus) {
       if (this.state.password !== this.state.confirmPassword) {
         this.setState({
@@ -178,7 +179,6 @@ export class Signup extends Component {
   };
   
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state);
     if (prevState.isButtonDisabled === true) {
       if (
         this.state.firstNameOnFocus &&
@@ -206,9 +206,7 @@ export class Signup extends Component {
   }
 
   handleOnSubmit = async (event) => {
-    console.log('submitted');
     event.preventDefault();
-    console.log('submitted');
     try {
       let userInputObj = {
         firstName: this.state.firstName,
@@ -217,11 +215,26 @@ export class Signup extends Component {
         userName: this.state.userName,
         password: this.state.password,
       };
-      console.log(userInputObj);
-      let success = await Axios.post("/api/user/sign-up", userInputObj);
-      console.log(success);
+      await Axios.post("/api/user/sign-up", userInputObj);
+      toast.success(`User created - Please login`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
-      console.log(e);
+      toast.error(`${e.response.data.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
