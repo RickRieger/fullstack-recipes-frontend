@@ -249,7 +249,7 @@ export class Signup extends Component {
       confirmPasswordError,
     } = this.state;
     return (
-      <div>
+      <div >
         <div className="signup__container">
           <div className="container__child signup__form">
             <h1>Create an account</h1>

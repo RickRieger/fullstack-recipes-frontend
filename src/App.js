@@ -49,14 +49,19 @@ export class App extends Component {
 
   render() {
     return (
-      <>
+      < div style={{
+        backgroundImage: "url(banner.png)",
+        backgroundSize: 'cover',
+        objectFit:"cover",
+        backgroundRepeat:"no-repeat"
+      }}>
         <ToastContainer position="top-center" />
         <MainRouter
           user={this.state.user}
           handleUserLogin={this.handleUserLogin}
           handleUserLogout={this.handleUserLogout}
         />
-      </>
+      </div>
     );
   }
 }

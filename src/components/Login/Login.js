@@ -108,7 +108,7 @@ export class Login extends Component {
       this.props.handleUserLogin(decodedToken)
       window.localStorage.setItem("jwtToken", jwtToken);
       toast.success("Login success!");
-      this.props.history.push("/recipes");
+      this.props.history.push("/recipe");
     } catch (e) {
       if (e.response.status === 429) {
         toast.error(e.response.data);

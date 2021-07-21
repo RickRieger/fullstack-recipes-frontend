@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 export class Home extends Component {
   render() {
     return (
-      <div style={{textAlign: "center", marginTop: "15%", fontSize:"45px"}}>
-        Welcome to my page PAB
+      <div style={{width: "100vw", height: "100vh"}}>
       </div>
     )
   }

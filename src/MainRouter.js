@@ -17,7 +17,9 @@ const MainRouter = (props) => {
         <Route 
         exact 
         path="/sign-up" 
-        component={Signup} />
+        component={Signup} 
+          
+        />
 
         <Route
           exact
