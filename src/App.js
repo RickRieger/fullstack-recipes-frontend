@@ -49,7 +49,7 @@ export class App extends Component {
 
   render() {
     return (
-      < div style={{
+      <div style={{
         backgroundImage: "url(banner.png)",
         backgroundSize: 'cover',
         objectFit:"cover",
