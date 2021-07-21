@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import checkIfUserIsAuth from "../utils/checkIsUserIsAuth";
