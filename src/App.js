@@ -52,7 +52,8 @@ export class App extends Component {
       <div style={{
         backgroundImage: "url(banner.png)",
         backgroundSize: 'cover',
-        objectFit:"cover",
+        backgroundPosition:'center',
+        objectFit:"fill",
         backgroundRepeat:"no-repeat"
       }}>
         <ToastContainer position="top-center" />

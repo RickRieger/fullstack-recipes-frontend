@@ -276,7 +276,7 @@ export class Signup extends Component {
               <div className="errorMessage">
                 {firstNameError && firstNameError}
               </div>
-              <div className="warning">empty</div>
+              <div className="warning"></div>
               <div className="form-group">
                 <label>Lastname</label>
                 <input

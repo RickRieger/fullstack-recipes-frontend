@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+// import RecipeList from './RecipeList';
+import { Link } from "react-router-dom";
+import "./Recipe.css"
 export class Recipe extends Component {
   state = {
     search: "",
     diet: [],
     health:[],
-    cuisineType:""
+    cuisineType:"",
+    mealType:"",
+    dishType:"",
+    maxCalories:""
   };
 
 
@@ -45,16 +51,29 @@ export class Recipe extends Component {
     try {
       console.log(this.state);
   
-
+      const search = this.state.search;
       const diet = this.state.diet.join('');
       const health = this.state.health.join('');
-      console.log(health);
+      const cuisineType = this.state.cuisineType;
+      const mealType = this.state.mealType;
+      const dishType = this.state.dishType;
+      const maxCalories = this.state.maxCalories;
 
-      // let recipes = await axios.get(
-      //   `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=690f49ff&cuisineType=American&diet=high-protein&health=celery-free&mealType=Dinner&dishType=Main%20course&imageSize=REGULAR&app_key=a0257a36cbac29cdb4d5de30af1ae1b6${this.state.diet}
-      //   `
+      
+
+
+      let recipeSearchApiString = `https://api.edamam.com/api/recipes/v2?type=public&q=${search}${diet}${health}${cuisineType}${mealType}${dishType}${maxCalories}&app_id=${process.env.REACT_APP_EDAMAM_ID}&app_key=${process.env.REACT_APP_EDAMAM_KEY}&random=true`
+      
+      window.sessionStorage.setItem("Last searched recipe", recipeSearchApiString);
+      
+
+      
+      let recipes = await axios.get(recipeSearchApiString);
+      // await axios.get(
+      //   `https://api.edamam.com/api/recipes/v2?type=public&q=${search}${diet}${health}${cuisineType}${mealType}${dishType}${maxCalories}&app_id=${process.env.REACT_APP_EDAMAM_ID}&app_key=${process.env.REACT_APP_EDAMAM_KEY}&random=true`
       // );
-      // console.log(recipes);
+
+      console.log(recipes);
 
       toast.dark(`FOOD PAB!`, {
         position: "top-center",
@@ -81,14 +100,21 @@ export class Recipe extends Component {
 
   render() {
     return (
-      <div className="login_body">
-        <div className="login__container">
-          <div className="container__child signup__form">
-            <h1>Recipes</h1>
-            <br />
+      <div className="recipe_body">
+      <div id='recipe-container'></div>
+          <div className="recipe__form">
+
+           
             <form onSubmit={this.handleOnSubmit}>
-              <div className="form-group">
+            
+              <div>
                 <label>Search recipes</label>
+                <div 
+              style={{ color: "black", fontSize: "10px",marginTop:"5px"  }}
+              >Make a general query, or use the drop-down filtered choices below.</div>
+            <div 
+              style={{ color: "black", fontSize: "10px", marginTop:"5px"  }}
+              >All searches will generate 20 random recipes or less.</div>
                 <input
                   className="form-control"
                   type="text"
@@ -101,6 +127,12 @@ export class Recipe extends Component {
                   autoFocus
                 />
               </div>
+              <br />
+              <br />
+              <div 
+              style={{ color: "black", fontSize: "10px"  }}
+              >You may select multiple options by holding shift key or control.</div>
+              <br />
               <div className="form-group">
                 <label>Diet:&nbsp;&nbsp;</label>
                 <select
@@ -108,16 +140,18 @@ export class Recipe extends Component {
                   style={{ color: "black" }}
                   id="diet"
                   name="diet"
-                  size="2"
+                  size="3"
                   value={this.state.diet}
                   onChange={this.handleOptionsOnChange}
                 >
+                  <option value=""></option>
                   <option value="&diet=balanced">balanced</option>
                   <option value="&diet=high-fiber">high-fiber</option>
                   <option value="&diet=high-protein">high-protein</option>
                   <option value="&diet=low-carb">low-carb</option>
                 </select>
               </div>
+             
               <div className="form-group">
                 <label>Health:&nbsp;&nbsp;</label>
                 <select
@@ -125,10 +159,11 @@ export class Recipe extends Component {
                   style={{ color: "black" }}
                   id="health"
                   name="health"
-                  size="2"
+                  size="3"
                   value={this.state.health}
                   onChange={this.handleOptionsOnChange}
                 >
+                  <option value=""></option>
                   <option value="&health=alcohol-free">alcohol-free</option>
                   <option value="&health=celery-free">celery-free</option>
                   <option value="&health=crustacean-free">crustacean-free</option>
@@ -160,16 +195,24 @@ export class Recipe extends Component {
                   <option value="&health=wheat-free">wheat-free</option>
                 </select>
               </div>
+              
               <div className="form-group">
+                <div>
                 <label>Cuisine Type:&nbsp;&nbsp;</label>
+                <div 
+                style={{ color: "black", fontSize: "9px"  }}
+                >(select one)</div>
+                </div>
                 <select
                   style={{ color: "black" }}
                   id="cuisineType"
                   name="cuisineType"
+                  size="3"
                   value={this.state.cuisineType}
                   onChange={this.handleInputOnChange}
                   multiple={false}
                 >
+                  <option value=""></option>
                   <option value="&cuisineType=American">American</option>
                   <option value="&cuisineType=Asian">Asian</option>
                   <option value="&cuisineType=British">British</option>
@@ -191,6 +234,103 @@ export class Recipe extends Component {
                   <option value="&cuisineType=Nordic">Nordic</option>
                 </select>
               </div>
+              <div className="form-group">
+              <div>
+                <label>Meal Type:&nbsp;&nbsp;</label>
+                <div 
+                style={{ color: "black", fontSize: "9px"  }}
+                >(select one)</div>
+                </div>
+                <select
+                  style={{ color: "black" }}
+                  id="mealType"
+                  name="mealType"
+                  size="3"
+                  value={this.state.mealType}
+                  onChange={this.handleInputOnChange}
+                  multiple={false}
+                >
+                  <option value=""></option>
+                  <option value="&mealType=Breakfast">Breakfast</option>
+                  <option value="&mealType=Lunch">Lunch</option>
+                  <option value="&mealType=Snack">Snack</option>
+                  <option value="&mealType=Teatime">Teatime</option>
+                  <option value="&mealType=Dinner">Dinner</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <div>
+                <label>Dish type:&nbsp;&nbsp;</label>
+                <div 
+                style={{ color: "black", fontSize: "9px"  }}
+                >(select one)</div>
+                </div>
+                <select
+                  style={{ color: "black" }}
+                  id="dishType"
+                  name="dishType"
+                  size="3"
+                  value={this.state.dishType}
+                  onChange={this.handleInputOnChange}
+                  multiple={false}
+                >
+                  <option value=""></option>
+                  <option value="&dishType=Biscuits and Cookies">Biscuits and Cookies</option>
+                  <option value="&dishType=Bread">Bread</option>
+                  <option value="&dishType=Cereals">Cereals</option>
+                  <option value="&dishType=Condiments and sauces">Condiments and sauces</option>
+                  <option value="&dishType=Desserts">Desserts</option>
+                  <option value="&dishType=Drinks">Drinks</option>
+                  <option value="&dishType=Main Course">Main Course</option>
+                  <option value="&dishType=Pancake">Pancake</option>
+                  <option value="&dishType=Preps">Preps</option>
+                  <option value="&dishType=Preserve">Preserve</option>
+                  <option value="&dishType=Salad">Salad</option>
+                  <option value="&dishType=Sandwiches">Sandwiches</option>
+                  <option value="&dishType=Side dish">Side dish</option>
+                  <option value="&dishType=Soup">Soup</option>
+                  <option value="&dishType=Starter">Starter</option>
+                  <option value="&dishType=Sweets">Sweets</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <div>
+                <label>Max calories:&nbsp;&nbsp;</label>
+                <div 
+                style={{ color: "black", fontSize: "9px"  }}
+                >(select one)</div>
+                </div>
+                <select
+                  style={{ color: "black" }}
+                  id="maxCalories"
+                  name="maxCalories"
+                  size="3"
+                  value={this.state.calories}
+                  onChange={this.handleInputOnChange}
+                  multiple={false}
+                >
+                  <option value=""></option>
+                  <option value="&calories=10">10</option>
+                  <option value="&calories=30">30</option>
+                  <option value="&calories=100">100</option>
+                  <option value="&calories=300">300</option>
+                  <option value="&calories=600">600</option>
+                  <option value="&calories=700">700</option>
+                  <option value="&calories=800">800</option>
+                  <option value="&calories=900">900</option>
+                  <option value="&calories=1000">1000</option>
+                  <option value="&calories=1200">1200</option>
+                  <option value="&calories=1400">1400</option>
+                  <option value="&calories=1600">1600</option>
+                  <option value="&calories=1800">1800</option>
+                  <option value="&calories=2000">2000</option>
+                  <option value="&calories=2200">2200</option>
+                  <option value="&calories=2400">2400</option>
+                  <option value="&calories=2600">2600</option>
+                  <option value="&calories=2800">2800</option>
+                  <option value="&calories=3000">3000</option>
+                </select>
+              </div>
               <div className="m-t-lg">
                 <ul className="list-inline">
                   <li>
@@ -204,7 +344,7 @@ export class Recipe extends Component {
               </div>
             </form>
           </div>
-        </div>
+       
       </div>
     );
   }

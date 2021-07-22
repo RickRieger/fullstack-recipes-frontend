@@ -8,35 +8,29 @@ a,
   -webkit-transition: all .25s ease-in;
   transition: all .25s ease-in;
 }
-.login_body{
-  width:100vw;
+.recipe_body{
+  width:100%;
   height:100vh;
   display:flex;
-  justify-content: center;
+  justify-content: space-between;
 
   }
-.login__container {
-  position: absolute;
-  top: 40%;
-  right:5%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 20%;
-  height: 40%;
-  border-radius: remy(3px);
-  -webkit-box-shadow: 0px remy(3px) remy(7px) rgba(0, 0, 0, 0.25);
-          box-shadow: 0px remy(3px) remy(7px) rgba(0, 0, 0, 0.25);
-  /* z-index: -1; */
+
+#recipe-container{
+  height:75%;
+  width:65%;
+  margin-left:1.5%;
+  margin-top:10%;
+  background-color: rgba(255, 255, 255, 0.466);
+  display:flex;
+}
+.recipe__form {
+  padding: 1rem;
+  background: #fafafaa2;
+  margin-right:1.5%;
+  margin-top:10%;
+  height:75%;
+  background-color: rgba(255, 255, 255, 0.466);
 }
 
 .signup__overlay {
@@ -47,7 +41,12 @@ a,
   height: 100%;
   background-color: rgba(0, 0, 0, 0.76);
 }
-
+.form-group{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
 .container__child {
   width: 100%;
   height: 100%;
@@ -133,15 +132,12 @@ h2 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.signup__form {
-  padding: 2.5rem;
-  background: #fafafa;
-}
+
 
 label {
   font-size: .85rem;
   text-transform: uppercase;
-  color: #686666;
+  color: #0074d9;
 }
 
 .form-control {
@@ -163,7 +159,15 @@ label {
 [type="password"] {
   color: #111;
 }
-
+select{
+  width:170px;
+  height:30px;
+  font-size: 12px;
+}
+.list-inline{
+  display:flex;
+  justify-content: center;
+}
 .btn--form {
   padding: .5rem 2.5rem;
   font-size: .95rem;
