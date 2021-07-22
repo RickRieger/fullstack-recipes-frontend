@@ -5,7 +5,8 @@ export class Recipe extends Component {
   state = {
     search: "",
     diet: [],
-    health:[]
+    health:[],
+    cuisineType:""
   };
 
 
@@ -47,7 +48,7 @@ export class Recipe extends Component {
 
       const diet = this.state.diet.join('');
       const health = this.state.health.join('');
-
+      console.log(health);
 
       // let recipes = await axios.get(
       //   `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=690f49ff&cuisineType=American&diet=high-protein&health=celery-free&mealType=Dinner&dishType=Main%20course&imageSize=REGULAR&app_key=a0257a36cbac29cdb4d5de30af1ae1b6${this.state.diet}
@@ -83,7 +84,7 @@ export class Recipe extends Component {
       <div className="login_body">
         <div className="login__container">
           <div className="container__child signup__form">
-            <h1>Recipe</h1>
+            <h1>Recipes</h1>
             <br />
             <form onSubmit={this.handleOnSubmit}>
               <div className="form-group">
@@ -92,9 +93,11 @@ export class Recipe extends Component {
                   className="form-control"
                   type="text"
                   name="search"
+                  style={{ color: "black" }}
                   placeholder="search"
                   id="search"
                   onChange={this.handleInputOnChange}
+                  required
                   autoFocus
                 />
               </div>
@@ -155,6 +158,37 @@ export class Recipe extends Component {
                   <option value="&health=vegan">vegan</option>
                   <option value="&health=vegitarian">vegitarian</option>
                   <option value="&health=wheat-free">wheat-free</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Cuisine Type:&nbsp;&nbsp;</label>
+                <select
+                  style={{ color: "black" }}
+                  id="cuisineType"
+                  name="cuisineType"
+                  value={this.state.cuisineType}
+                  onChange={this.handleInputOnChange}
+                  multiple={false}
+                >
+                  <option value="&cuisineType=American">American</option>
+                  <option value="&cuisineType=Asian">Asian</option>
+                  <option value="&cuisineType=British">British</option>
+                  <option value="&cuisineType=Caribbean">Caribbean</option>
+                  <option value="&cuisineType=Central European">Central European</option>
+                  <option value="&cuisineType=Chinese">Chinese</option>
+                  <option value="&cuisineType=French">French</option>
+                  <option value="&cuisineType=Indian">Indian</option>
+                  <option value="&cuisineType=Italian">Italian</option>
+                  <option value="&cuisineType=Japanese">Japanese</option>
+                  <option value="&cuisineType=Italian">Italian</option>
+                  <option value="&cuisineType=Kosher">Kosher</option>
+                  <option value="&cuisineType=Mediterranean">Mediterranean</option>
+                  <option value="&cuisineType=Mexican">Mexican</option>
+                  <option value="&cuisineType=Middle Eastern">Middle Eastern</option>
+                  <option value="&cuisineType=Nordic">Nordic</option>
+                  <option value="&cuisineType=South American">South American</option>
+                  <option value="&cuisineType=South East Asian">South East Asian</option>
+                  <option value="&cuisineType=Nordic">Nordic</option>
                 </select>
               </div>
               <div className="m-t-lg">

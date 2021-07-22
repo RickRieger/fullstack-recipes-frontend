@@ -8,16 +8,16 @@ a,
   -webkit-transition: all .25s ease-in;
   transition: all .25s ease-in;
 }
-.login_body{
+.signup__body{
   width:100vw;
   height:100vh;
   display:flex;
   justify-content: center;
 
   }
-.login__container {
+.signup__container {
   position: absolute;
-  top: 40%;
+  top: 54%;
   right:5%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -31,8 +31,8 @@ a,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 20%;
-  height: 40%;
+  width: 22%;
+  height: 78%;
   border-radius: remy(3px);
   -webkit-box-shadow: 0px remy(3px) remy(7px) rgba(0, 0, 0, 0.25);
           box-shadow: 0px remy(3px) remy(7px) rgba(0, 0, 0, 0.25);

@@ -3,7 +3,7 @@ import Axios from "../utils/Axios";
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from 'validator';
 import { toast } from 'react-toastify';
 // import checkIfUserIsAuth from "../utils/checkIsUserIsAuth";
-import './Signup.scss';
+import './Signup.css';
 
 export class Signup extends Component {
   state = {
@@ -249,7 +249,7 @@ export class Signup extends Component {
       confirmPasswordError,
     } = this.state;
     return (
-      <div >
+      <div className="signup__body" >
         <div className="signup__container">
           <div className="container__child signup__form">
             <h1>Create an account</h1>
