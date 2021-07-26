@@ -122,13 +122,15 @@ export class Login extends Component {
       this.state;
     return (
       <div className="login_body">
-        <div className="login__container">
-          <div className="container__child signup__form">
+    
+        
+            
+           
+            <form className="login__form" onSubmit={this.handleOnSubmit}>
             <h1>Log in</h1>
             <br />
             <br />
             <br />
-            <form onSubmit={this.handleOnSubmit}>
               <div className="form-group">
                 <label>Email</label>
                 <input
@@ -176,8 +178,7 @@ export class Login extends Component {
               </div>
             </form>
           </div>
-        </div>
-      </div>
+      
     );
   }
 }

@@ -50,11 +50,13 @@ export class App extends Component {
   render() {
     return (
       <div style={{
-        backgroundImage: "url(banner.png)",
+        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(banner.png)",
         backgroundSize: 'cover',
-        backgroundPosition:'center',
-        objectFit:"fill",
-        backgroundRepeat:"no-repeat"
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        overflow:'hidden',
+        backgroundAttachment: 'fixed',
+        // overflowY: 'scroll'
       }}>
         <ToastContainer position="top-center" />
         <MainRouter
