@@ -226,15 +226,16 @@ export class Signup extends Component {
         progress: undefined,
       });
     } catch (e) {
-      toast.error(`${e.response.data.message}`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      console.log(e);
+      // toast.error(`${e.response.data.message}`, {
+      //   position: "top-center",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
     }
   };
 

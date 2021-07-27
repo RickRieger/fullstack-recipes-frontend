@@ -1,55 +1,53 @@
-import React from 'react';
-
-import { Card, Button } from 'react-bootstrap';
-
-
-
+import React from "react";
+import { Card, Button } from "react-bootstrap";
 function RecipeList(props) {
-  console.log(props);
-  return props.recipes.slice(0, 3).map((item) => {
-    return (
-      <>
-        {props.loading ? (
-          <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            ...Loading
-          </div>
-        ) : (
-          <Card key={item.recipe.totalWeight}>
-            <Card.Title className="card-title">{item.recipe.label}</Card.Title>
-            <Card.Img variant="top" src={item.recipe.image} />
-            <Card.Body>
-              <br />
-              <div className="ingredients-title">Ingredients</div>
-
-              <hr />
-
-              <div className="ingredients-container">
-                <ul>
-                  {item.recipe.ingredients.map((ingredient) => {
-                    return <li>{ingredient.text}</li>;
-                  })}
-                </ul>
-              </div>
-
-              <div className="button-container">
-                <Button
-                onClick={()=>{props.handleTextToFriend(item)}}>
-                Text to a friend</Button>
-                <Button onClick={()=>{props.handleAddToShoppingList(item)}}>
-                Add to shopping list</Button>
-                <Button 
-                onClick={()=>{props.handleAddToFavorites(item)}}>
-                Add to favorites
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        )}
-      </>
-    );
-  });
+  function loadCard() {
+    return props.recipes.slice(0, 3).map((item, index) => {
+      return (
+        <Card key={index}>
+          <Card.Title className="card-title">{item.recipe.label}</Card.Title>
+          <Card.Img variant="top" src={item.recipe.image} />
+          <Card.Body>
+            <br />
+            <div className="ingredients-title">Ingredients</div>
+            <hr />
+            <div
+              className="ingredients-container"
+              style={{ textAlign: "center" }}
+            >
+              <ul>
+                {item.recipe.ingredients.map((ingredient, index) => {
+                  return <li key={index}>{ingredient.text}</li>;
+                })}
+              </ul>
+            </div>
+            <div className="button-container">
+              <Button
+                onClick={() => {
+                  props.handleAddToFavorites(item);
+                }}
+              >
+                Save recipe for later
+              </Button>
+              <Button
+                onClick={() => {
+                  props.handleAddToShoppingList(item);
+                }}
+              >
+                Add ingredients to shopping list
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      );
+    });
+  }
+  return props.loading ? (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>...Loading</div>
+  ) : (
+    loadCard()
+  );
 }
-
 export default RecipeList;
 
 // import React, { Component } from 'react'

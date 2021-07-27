@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import Axios from '../utils/Axios';
 import { toast } from 'react-toastify';
 import RecipeList from './RecipeList';
 import { Link } from 'react-router-dom';
@@ -135,32 +136,26 @@ export class Recipe extends Component {
       console.log(e);
     }
   };
-  handleTextToFriend= async (item)=>{
-      try{
-      const label = item.recipe.label
-      const image = item.recipe.image
-      const ingredients = Array.from(item.recipe.ingredients, 
-        (item)=>{return item.text})
-      const directionsUrl = item.recipe.url
-      console.log(label, image, ingredients, directionsUrl);
-      
-
-      }catch(e){
-
-      }
-  }
   handleAddToShoppingList= async (item)=>{
       try{
-      const label = item.recipe.label
-      const image = item.recipe.image
       const ingredients = Array.from(item.recipe.ingredients, 
         (item)=>{return item.text})
-      const directionsUrl = item.recipe.url
-      console.log(label, image, ingredients, directionsUrl);
+      console.log(ingredients);
+      
+      await Axios.post("/api/grocery/create-grocery-item", ingredients);
+      toast.success(`Ingredients saved, oh and FAY Andy!`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       
 
       }catch(e){
-
+        console.log(e);
       }
   }
   handleAddToFavorites= async (item)=>{
@@ -199,7 +194,7 @@ export class Recipe extends Component {
           <RecipeList 
           recipes={this.state.recipes}
           loading={this.state.loading}
-          handleTextToFriend={this.handleSaveRecipeOnClick}
+          handleTextToFriend={this.handleTextToFriend}
           handleAddToShoppingList={this.handleAddToShoppingList}
           handleAddToFavorites={this.handleAddToFavorites}
            />

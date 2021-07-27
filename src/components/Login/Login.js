@@ -110,11 +110,12 @@ export class Login extends Component {
       toast.success("Login success!");
       this.props.history.push("/recipe");
     } catch (e) {
-      if (e.response.status === 429) {
-        toast.error(e.response.data);
-      } else {
-        toast.error(e.response.data.payload);
-      }
+      console.log(e);
+      // if (e.response.status === 429) {
+      //   toast.error(e.response.data);
+      // } else {
+      //   toast.error(e.response.data.payload);
+      // }
     }
   };
   render() {
