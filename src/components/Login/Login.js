@@ -122,7 +122,18 @@ export class Login extends Component {
     const { email, emailError, password, passwordError, submitButtonDisabled } =
       this.state;
     return (
-      <div className="login_body">
+      <div 
+      className="login_body"
+      style={{
+        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.5)), url(banner.png)",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        overflow:'hidden',
+        backgroundAttachment: 'fixed',
+        width:'100vw',
+        height: '100vh'
+      }}>
     
         
             

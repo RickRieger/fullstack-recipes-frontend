@@ -12,35 +12,40 @@ h1{
 #recipe-container{
   height:90%;
   width:60%;
-  margin-left:1.5%;
+  /* margin-right:600px; */
   margin-top:5%;
   /* background-color: rgba(255, 255, 255, 0.466); */
   display:flex;
   justify-content: space-around;
 }
 .recipe__form {
-  padding: 4rem;
+  /* position: absolute; */
+  padding: 2em;
   background: #fafafaa2;
-  margin-top:10%;
-  height:75vh;
-  width:30%;
+  margin-top: 10%;
+  height: 700px;
+  width: 550px;
   background-color: rgba(95, 94, 94, 0.836);
+  right: 5%;
+  border-radius: 30px;
+  border:1px solid black;
+  box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
 }
-form{
+/* form{
   width:90%;
   height: 90%;
-}
-.form-group{
-  display:flex;
+} */
+.form-group {
+  display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 4px;
+  align-items: baseline;
 }
 input{
   font-size:1.3rem;
 }
 label {
-  font-size: 1vw;
+  font-size: 1em;
   text-transform: uppercase;
   color: #00ff00;
 }
@@ -53,11 +58,15 @@ background-color: darkblue;
 }
 .form-control {
   background-color: transparent;
+  color:black;
   border-top: 0;
   border-right: 0;
   border-left: 0;
   border-radius: 0;
   font-size: 1.3rem;
+}
+::-webkit-input-placeholder {
+  color:transparent;
 }
 
 .form-control:focus {
@@ -165,9 +174,8 @@ ul {
   align-items:center;
 }
 .btn{
-  margin:3%;
+  margin-top:40px;
   font-size:.6vw;
-  background-color:;
   text-decoration: none;
   border: none;
   padding: 7px 40px;

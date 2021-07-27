@@ -1,0 +1,48 @@
+.update-container {
+  display: flex;
+  justify-content:center;
+
+  width:100vw;
+  height:100vh;
+}
+
+
+#friends-form{
+  display:flex;
+  flex-direction: column;
+  padding: 2em;
+  background: #fafafaa2;
+  margin-top: 10%;
+  height: 300px;
+  width: 550px;
+  background-color: rgba(95, 94, 94, 0.836);
+  border-radius: 30px;
+  border:1px solid black;
+  box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
+}
+
+#friends {
+  background-color: rgba(95, 94, 94, 0.836);
+  width: 900px;
+  height:fit-content;
+  margin-top: 200px;
+  margin-bottom:100px;
+  
+}
+#friends thead tr th,
+#friends tbody tr td {
+
+  border: 1px solid black;
+  padding: 10px;
+  color:black;
+}
+#friends #tr th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgba(32, 32, 32, 0.836);
+  color: white;
+}
+#friends tbody tr {
+  text-align: left;
+}

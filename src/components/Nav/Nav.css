@@ -23,10 +23,10 @@ nav{
   margin-left: 15px;
 
 }
-.nav-links{
+.nav-links {
   display: flex;
-  justify-content: space-around;
-  width:15%;
+  width: 46%;
+  justify-content: space-evenly;
 }
 .nav-links li{
   list-style: none;

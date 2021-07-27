@@ -159,33 +159,37 @@ export class Recipe extends Component {
       }
   }
   handleAddToFavorites= async (item)=>{
+    const label = item.recipe.label
+    const image = item.recipe.image
+    const ingredients = Array.from(item.recipe.ingredients, 
+      (item)=>{return item.text})
+    const directionsUrl = item.recipe.url
+    console.log(label, image, ingredients, directionsUrl);
+
+    const savedRecipe = {
+      label:label,
+      image:image,
+      ingredients:ingredients,
+      directionsUrl:directionsUrl
+    }
       try{
-      const label = item.recipe.label
-      const image = item.recipe.image
-      const ingredients = Array.from(item.recipe.ingredients, 
-        (item)=>{return item.text})
-      const directionsUrl = item.recipe.url
-      console.log(label, image, ingredients, directionsUrl);
-      
+      await Axios.post("/api/recipe/create-recipe", savedRecipe);
+      toast.success(`Recipe saved!`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+
+      });
+
       }catch(e){
-
+        console.log(e)
       }
-  }
-
-  // showRecipes = () => {
-  //   console.log('dude');
-  //   return this.state.recipes.map((item) => {
-  //     return (
-  //       <div className="img-container-outer effect" key={item.label}>
-
-  //           <div className="img-container-inner hover-effect">
-  //              {item.label}hello
-  //           </div>
-
-  //       </div>
-  //     );
-  //   });
-  // };
+    }
+  
 
   render() {
     return (

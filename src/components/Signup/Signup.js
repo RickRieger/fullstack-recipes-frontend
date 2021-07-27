@@ -254,11 +254,15 @@ export class Signup extends Component {
             <form className="signup__form" onSubmit={this.handleOnSubmit}>
             <h1>Create an account</h1>
             <br />
-            <h4 className="">Sign up and have fun!</h4>
+            <h4 >Sign up and have fun!</h4>
             <br />
             <br />
               <div className="form-group">
-                <label>Firstname</label>
+                <label>Firstname 
+                  <div className="errorMessage">
+                  {firstNameError && firstNameError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -272,12 +276,17 @@ export class Signup extends Component {
                   autoFocus
                 />
               </div>
-              <div className="errorMessage">
+              {/* <div className="errorMessage">
                 {firstNameError && firstNameError}
-              </div>
+              </div> */}
               <div className="warning"></div>
               <div className="form-group">
-                <label>Lastname</label>
+                <label>
+                Lastname
+                  <div className="errorMessage">
+                  {lastNameError && lastNameError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -290,11 +299,13 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
-              <div className="errorMessage">
-                {lastNameError && lastNameError}
-              </div>
               <div className="form-group">
-                <label>Username</label>
+                <label>
+                Username
+                  <div className="errorMessage">
+                  {userNameError && userNameError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -307,11 +318,13 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
-              <div className="errorMessage">
-                {userNameError && userNameError}
-              </div>
               <div className="form-group">
-                <label>Email</label>
+                <label>
+                Email
+                  <div className="errorMessage">
+                  {emailError && emailError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -324,11 +337,12 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
-              <div className="errorMessage">
-                {emailError && emailError}
-              </div>
               <div className="form-group">
-                <label>Password</label>
+                <label>Password
+                  <div className="errorMessage">
+                  {passwordError && passwordError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="password"
@@ -341,11 +355,12 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
-              <div className="errorMessage">
-                {passwordError && passwordError}
-              </div>
               <div className="form-group">
-                <label>RepeatPassword</label>
+                <label>ConfirmPassword
+                  <div className="errorMessage">
+                  {confirmPasswordError && confirmPasswordError}
+                  </div>
+                </label>
                 <input
                   className="form-control"
                   type="password"
@@ -358,10 +373,7 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
-              <div className="errorMessage">
-                {confirmPasswordError && confirmPasswordError}
-              </div>
-              <div className="m-t-lg">
+              <div>
                 <ul className="list-inline">
                   <li>
                     <input

@@ -21,7 +21,59 @@ export class Nav extends Component {
                 to="/recipe"
                 activeStyle={{ borderBottom: "1px solid #00ff00" }}
                 >
-                  Get Recipes
+                  Recipes
+                </NavLink>
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
+              {this.props.user ? (
+                <NavLink 
+                activeClassName="selected" 
+                to="/grocery"
+                activeStyle={{ borderBottom: "1px solid #00ff00" }}
+                >
+                  Shopping List
+                </NavLink>
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
+              {this.props.user ? (
+                <NavLink 
+                activeClassName="selected" 
+                to="/friends"
+                activeStyle={{ borderBottom: "1px solid #00ff00" }}
+                >
+                  Friends
+                </NavLink>
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
+              {this.props.user ? (
+                <NavLink 
+                activeClassName="selected" 
+                to="/text-friends"
+                activeStyle={{ borderBottom: "1px solid #00ff00" }}
+                >
+                  Text Friends
+                </NavLink>
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
+              {this.props.user ? (
+                <NavLink 
+                activeClassName="selected" 
+                to="/saved-recipes"
+                activeStyle={{ borderBottom: "1px solid #00ff00" }}
+                >
+                  Saved Recipes
                 </NavLink>
               ) : (
                 ""
