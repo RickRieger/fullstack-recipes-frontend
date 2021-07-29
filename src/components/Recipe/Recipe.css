@@ -2,33 +2,39 @@
   width:100vw;
   height: 100vh;
   display:flex;
+  flex-direction: column;
   justify-content: space-around;
-
-  }
+}
 h1{
   color:BLACK;
   text-align: center;
 }
-#recipe-container{
-  height:90%;
-  width:60%;
-  /* margin-right:600px; */
-  margin-top:5%;
+#recipe-container-search {
+  height: 90%;
+  width: 100%;
+  /* margin-right: 600px; */
+  margin-top: 5%;
   /* background-color: rgba(255, 255, 255, 0.466); */
-  display:flex;
+  display: flex;
   justify-content: space-around;
+  flex-direction: row;
+}
+.card-section{
+  display:flex;
+  width:60vw;
+  justify-content: space-evenly;
 }
 .recipe__form {
   /* position: absolute; */
   padding: 2em;
   background: #fafafaa2;
-  margin-top: 10%;
-  height: 700px;
-  width: 550px;
+  margin-top: 6%;
+  height: 750px;
+  width: 475px;
   background-color: rgba(95, 94, 94, 0.836);
   right: 5%;
   border-radius: 30px;
-  border:1px solid black;
+  border: 1px solid black;
   box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
 }
 /* form{
@@ -72,11 +78,16 @@ background-color: darkblue;
 .form-control:focus {
   border-color: #111;
 }
+.logo-container{
+  display:flex;
+  justify-content: center;
+}
 
 select {
-  width: 8vw;
-  font-size: 0.8vw;
-  height:40px;
+  width: 215px;
+  font-size: 1em;
+  height: 38px;
+  margin-bottom: 14px;
 }
 
 .list-inline{
@@ -109,9 +120,9 @@ select {
 /* bootstrap card */
 .card {
   display: flex;
-  width: 30%;
+  width: 315px;
   height: -moz-fit-content;
-  height: 74%;
+  height: 661px;
   padding: 1%;
   display: flex;
   flex-direction: column;
@@ -197,6 +208,44 @@ ul {
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
   /* Lowering the shadow */
 }
+.class-row{
+  display:flex;
+  flex-direction:row;
+}
+.paginate-buttons {
+  width: 20%;
+  position: absolute;
+  bottom: 19%;
+  left: 25.5%;
+  display: flex;
+  magrin-bottom: 100px;
+  align-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #00f300;
+  /* padding: 36px; */
+}
+.btn--form--recipe {
+  margin-top:40px;
+  font-size:.6vw;
+  text-decoration: none;
+  border: none;
+  padding: 7px 40px;
+  background-color: #02d002;
+  color: rgb(7, 7, 7);
+  border-radius: 5px;
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.btn--form--recipe:focus {
+  background: #018301;
+}
+.btn--form--recipe:hover {
+  background: #018301;
+}
 @media screen and (max-width: 1500px) {
 .recipe_body{
   flex-direction: column-reverse;
@@ -252,6 +301,5 @@ select {
 label{
   font-size: 1em;
 }
-
 
 }

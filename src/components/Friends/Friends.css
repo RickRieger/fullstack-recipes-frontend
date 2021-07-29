@@ -1,28 +1,49 @@
 .update-container {
   display: flex;
-  justify-content:center;
-
-  width:100vw;
-  height:100vh;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
 }
 
 
-#friends-form{
-  display:flex;
+#friends-form {
+  display: flex;
   flex-direction: column;
   padding: 2em;
   background: #fafafaa2;
   margin-top: 10%;
   height: 300px;
-  width: 550px;
+  width: 500px;
+  color:black;
   background-color: rgba(95, 94, 94, 0.836);
   border-radius: 30px;
-  border:1px solid black;
+  border: 1px solid black;
   box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+#friends-form ::placeholder{
+  color:rgba(160, 160, 160, 0.713);
+}
+.form-control-friends {
+  background-color: transparent;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  font-size: 1.3rem;
+}
+.form-control-friends:focus {
+  outline: none ;
 }
 
 #friends {
-  background-color: rgba(95, 94, 94, 0.836);
+  background-color: rgb(18 237 3);
   width: 900px;
   height:fit-content;
   margin-top: 200px;

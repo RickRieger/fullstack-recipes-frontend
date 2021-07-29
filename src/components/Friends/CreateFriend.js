@@ -44,9 +44,9 @@ export class CreateFriend extends Component {
       this.setState({
         friendArray: getAllFriends.data.friends,
       });
-      console.log(this.state.friendArray, 'array--');
+      
     } catch (e) {
-      console.log(e,'error man');
+      console.log(e);
       // toast.error(e.response.data.payload);
     }
   };
@@ -101,30 +101,34 @@ export class CreateFriend extends Component {
           <h3>Create Friend</h3>
             <div className="input-div">
               <input
+                className="form-control-friends"
                 placeholder="first name"
                 onChange={this.handleOnFriendChange}
                 name="friendFirstName"
                 value={this.state.friendFirstName}
+                autoFocus
               />
             </div>
             <div className="input-div">
               <input
+                className="form-control-friends"
                 placeholder="last name"
                 onChange={this.handleOnFriendChange}
                 name="friendLastName"
                 value={this.state.friendLastName}
               />
             </div>
-            <div className="input-div">
+            <div >
               <input
+                className="form-control-friends"
                 placeholder="mobile number"
                 onChange={this.handleOnFriendChange}
                 name="friendMobileNumber"
                 value={this.state.friendMobileNumber}
               />
             </div>
-            <div className="button-div">
-              <button>Create Friend</button>
+            <div>
+              <button  className="btn">Create Friend</button>
             </div>
           </form>
         </div>

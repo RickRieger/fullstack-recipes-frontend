@@ -111,11 +111,11 @@ export class Login extends Component {
       this.props.history.push("/recipe");
     } catch (e) {
       console.log(e);
-      // if (e.response.status === 429) {
-      //   toast.error(e.response.data);
-      // } else {
-      //   toast.error(e.response.data.payload);
-      // }
+      if (e.response.status === 429) {
+        toast.error(e.response.data);
+      } else {
+        toast.error(e.response.data.payload);
+      }
     }
   };
   render() {
@@ -163,7 +163,7 @@ export class Login extends Component {
                 <label>Password</label>
                 <input
                   className="form-control"
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="Password"
                   id="password"

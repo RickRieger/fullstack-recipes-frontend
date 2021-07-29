@@ -3,7 +3,6 @@ import GroceryList from './GroceryList';
 import Button from '../common/Button';
 import Axios from "../utils/Axios";
 import './Grocery.css';
-import { computeHeadingLevel } from '@testing-library/react';
 export class Grocery extends Component {
 
   state = {
@@ -13,14 +12,11 @@ export class Grocery extends Component {
     errorMessage: '',
     canEdit: false,
     editInput: '',
-    priority: false,
   };
 
   async componentDidMount(){
     try{
          let allGroceryItems = await Axios.get("/api/grocery/get-all-grocery-items")
-         console.log(allGroceryItems);
-
 
          this.setState({
           groceryList: allGroceryItems.data.payload.grocery
@@ -171,7 +167,7 @@ export class Grocery extends Component {
     });
   };
   sortByDate = async (sortOrder) => {
-    console.log(sortOrder);
+  
     try {
       let sortedGroceryItems = await Axios.get(
         `/api/grocery/get-grocery-by-sort?sort=${sortOrder}`
@@ -182,7 +178,7 @@ export class Grocery extends Component {
     } catch (e) {
       console.log(e);
     }
-    console.log(this.state.groceryList);
+  
   };
   sortByPurchased = async (isPurchased) => {
     try {
@@ -195,18 +191,6 @@ export class Grocery extends Component {
     } catch (e) {
       console.log(e);
     }
-  };
-  handleCheckboxChecked = (event) => {
-    if (event.value === true) {
-      this.setState({
-        priority: true,
-      });
-    } else {
-      this.setState({
-        priority: false,
-      });
-    }
-    console.log(event)
   };
   render() {
 
@@ -228,8 +212,7 @@ export class Grocery extends Component {
           <div id="app">
             <div className="top-container">
             <div id="header">
-              <h1>Grocery List</h1>
-              <p></p>
+              <h1>Shopping List</h1>
             </div>
             <div id="input_field">
               {this.state.canEdit ? (
@@ -297,7 +280,6 @@ export class Grocery extends Component {
             <div id="task-field">
               <div id="task-list">
                 {this.state.groceryList.map((item, index) => {
-                  console.log(item)
                   return (
                     <GroceryList
                       key={item._id}

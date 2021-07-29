@@ -12,22 +12,33 @@ body{
 p{
   display: inline;
   margin-left: 1rem;
-  font-size: 1em;
+  font-size: 1.5em;
+}
+.fa, .fas {
+  font-weight: 900;
+  font-size: 1.5em;
+}
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
-#app{
-  display:flex;
+#app {
+  display: flex;
   flex-direction: column;
   position: absolute;
   padding: 2em;
   background: #fafafaa2;
-  margin-top: 10%;
-  height: 700px;
-  width: 550px;
+  height: 715px;
+  width: 935px;
   background-color: rgba(95, 94, 94, 0.836);
   border: 1px solid black;
   box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
-  right: 3%;
   border-radius: 30px;
 }
 .top-container{
@@ -38,13 +49,24 @@ p{
 }
 .bottom-container{
   margin-top:40px;
-  border-top:3px solid black;
+  border-top:2px solid black;
+  border-bottom:2px solid black;
   display:flex;
   flex-direction: column;
   width:100%;
   height:100%;
   padding:10px;
-  overflow: auto;
+  overflow-y:scroll;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.bottom-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.bottom-container {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
 }
 
 #header{
@@ -96,12 +118,12 @@ margin:0;
   width:30%;
   height:70%;
 }
-
+/* 
 .btn{
   width:170px;
   text-align: center;
   padding: 8px;
-}
+} */
 
 i{
   margin-left: 8px;
@@ -141,52 +163,52 @@ height:80%;
   
 }
 
-.grocery-edit-inputs{
+/* .grocery-edit-inputs{
   margin-left:5px;
   border-radius: 10px;
   height:50px; 
   width:273px;
   background-color: rgb(213 208 208);
 
-}
+} */
 ::placeholder{
   color:black;
 }
 .complete{
   text-decoration: line-through;
 }
-
+/* 
 .btn-secondary.raised {
 	box-shadow: 0 3px 0 0 #3b3e3f;
   border-radius: 10px;
-}
+} */
 
-.btn-secondary.raised:active, .btn-secondary.raised.active {
+/* .btn-secondary.raised:active, .btn-secondary.raised.active {
 	background: hsl(210, 2%, 22%);
 	box-shadow: none;
 	margin-bottom: -3px;
 	margin-top: 3px;
   border-radius: 10px;
-}
-.sorting-buttons{
+} */
+/* .sorting-buttons{
   width:5.5rem;
   height:3rem;
   font-size:.8rem;
   border-radius: 10px;
-}
-button{
+} */
+/* button{
   background-color:rgb(86 82 82);
   color:#c0c0c0 ;
 }
 button:active{
   background-color: #c0c0c0;
   color: black;
-}
+} */
 
 
-
+/* 
 #positivity{
   align-content: center;
   color:whitesmoke;
   font-size: 1.5rem;
-}
+} */

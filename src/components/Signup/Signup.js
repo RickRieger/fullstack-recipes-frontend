@@ -155,7 +155,7 @@ export class Signup extends Component {
       } else {
         this.setState({
           passwordError:
-            'Passwords must be at least 8 characters long, and contain at least one of the following: uppercase letter, lowercase letter, special character and number',
+          'Passwords must be at least 8 characters long, and contain at least one uppercase letter, lowercase letter, special character and number.',
           isButtonDisabled: true,
         });
       }
@@ -227,15 +227,15 @@ export class Signup extends Component {
       });
     } catch (e) {
       console.log(e);
-      // toast.error(`${e.response.data.message}`, {
-      //   position: "top-center",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      // });
+      toast.error(`${e.response.data.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -256,13 +256,11 @@ export class Signup extends Component {
             <br />
             <h4 >Sign up and have fun!</h4>
             <br />
-            <br />
               <div className="form-group">
                 <label>Firstname 
-                  <div className="errorMessage">
-                  {firstNameError && firstNameError}
-                  </div>
+
                 </label>
+
                 <input
                   className="form-control"
                   type="text"
@@ -276,16 +274,13 @@ export class Signup extends Component {
                   autoFocus
                 />
               </div>
-              {/* <div className="errorMessage">
-                {firstNameError && firstNameError}
-              </div> */}
-              <div className="warning"></div>
+              <div className="errorMessage">
+                  {firstNameError && firstNameError}
+              </div>
               <div className="form-group">
                 <label>
                 Lastname
-                  <div className="errorMessage">
-                  {lastNameError && lastNameError}
-                  </div>
+
                 </label>
                 <input
                   className="form-control"
@@ -299,12 +294,12 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
+              <div className="errorMessage">
+                  {lastNameError && lastNameError}
+              </div>
               <div className="form-group">
                 <label>
                 Username
-                  <div className="errorMessage">
-                  {userNameError && userNameError}
-                  </div>
                 </label>
                 <input
                   className="form-control"
@@ -318,12 +313,13 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
+              <div className="errorMessage">
+                  {userNameError && userNameError}
+              </div>
               <div className="form-group">
                 <label>
                 Email
-                  <div className="errorMessage">
-                  {emailError && emailError}
-                  </div>
+
                 </label>
                 <input
                   className="form-control"
@@ -337,11 +333,11 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
+              <div className="errorMessage">
+                  {emailError && emailError}
+                  </div>
               <div className="form-group">
                 <label>Password
-                  <div className="errorMessage">
-                  {passwordError && passwordError}
-                  </div>
                 </label>
                 <input
                   className="form-control"
@@ -355,11 +351,11 @@ export class Signup extends Component {
                   onFocus={this.handleInputOnFocus}
                 />
               </div>
+              <div className="errorMessage">
+                  {passwordError && passwordError}
+              </div>
               <div className="form-group">
                 <label>ConfirmPassword
-                  <div className="errorMessage">
-                  {confirmPasswordError && confirmPasswordError}
-                  </div>
                 </label>
                 <input
                   className="form-control"
@@ -372,6 +368,9 @@ export class Signup extends Component {
                   onBlur={this.handleOnBlur}
                   onFocus={this.handleInputOnFocus}
                 />
+              </div>
+              <div className="errorMessage">
+                  {confirmPasswordError && confirmPasswordError}
               </div>
               <div>
                 <ul className="list-inline">
@@ -387,7 +386,6 @@ export class Signup extends Component {
               </div>
             </form>
           </div>
-    
     );
   }
 }

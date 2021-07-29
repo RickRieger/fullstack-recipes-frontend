@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
@@ -9,7 +8,6 @@ import Recipe from "./components/Recipe/Recipe";
 import SavedRecipes from "./components/SavedRecipes/SavedRecipes";
 import Grocery from "./components/Grocery/Grocery";
 import Friends from "./components/Friends/CreateFriend";
-import Text from "./components/Text/Text";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const MainRouter = (props) => {
@@ -23,8 +21,6 @@ const MainRouter = (props) => {
       <PrivateRoute exact path="/grocery" component={Grocery} />
 
       <PrivateRoute exact path="/recipe" component={Recipe} />
-
-      <PrivateRoute exact path="/text-friends" component={Text} />
 
       <PrivateRoute exact path="/saved-recipes" component={SavedRecipes} />
 

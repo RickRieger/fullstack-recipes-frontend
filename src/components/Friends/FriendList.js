@@ -55,7 +55,6 @@ export class FriendList extends Component {
   };
 
   render() {
-    console.log(this.state);
     const { friend } = this.props;
     const { toggle } = this.state;
     return (
