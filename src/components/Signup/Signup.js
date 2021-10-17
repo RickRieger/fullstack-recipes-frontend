@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from "../utils/Axios";
+import Axios from '../utils/Axios';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from 'validator';
 import { toast } from 'react-toastify';
 // import checkIfUserIsAuth from "../utils/checkIsUserIsAuth";
@@ -155,7 +155,7 @@ export class Signup extends Component {
       } else {
         this.setState({
           passwordError:
-          'Passwords must be at least 8 characters long, and contain at least one uppercase letter, lowercase letter, special character and number.',
+            'Passwords must be at least 8 characters long, and contain at least one uppercase letter, lowercase letter, special character and number.',
           isButtonDisabled: true,
         });
       }
@@ -169,7 +169,7 @@ export class Signup extends Component {
       });
     }
   };
-  
+
   handleInputOnFocus = (event) => {
     if (!this.state[`${event.target.name}OnFocus`]) {
       this.setState({
@@ -177,7 +177,7 @@ export class Signup extends Component {
       });
     }
   };
-  
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isButtonDisabled === true) {
       if (
@@ -215,9 +215,9 @@ export class Signup extends Component {
         userName: this.state.userName,
         password: this.state.password,
       };
-      await Axios.post("/api/user/sign-up", userInputObj);
+      await Axios.post('/user/sign-up', userInputObj);
       toast.success(`User created - Please login`, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -228,7 +228,7 @@ export class Signup extends Component {
     } catch (e) {
       console.log(e);
       toast.error(`${e.response.data.message}`, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -238,7 +238,6 @@ export class Signup extends Component {
       });
     }
   };
-
 
   render() {
     const {
@@ -250,142 +249,120 @@ export class Signup extends Component {
       confirmPasswordError,
     } = this.state;
     return (
-      <div className="signup__body" >
-            <form className="signup__form" onSubmit={this.handleOnSubmit}>
-            <h1>Create an account</h1>
-            <br />
-            <h4 >Sign up and have fun!</h4>
-            <br />
-              <div className="form-group">
-                <label>Firstname 
+      <div className='signup__body'>
+        <form className='signup__form' onSubmit={this.handleOnSubmit}>
+          <h1>Create an account</h1>
+          <br />
+          <h4>Sign up and have fun!</h4>
+          <br />
+          <div className='form-group'>
+            <label>Firstname</label>
 
-                </label>
-
-                <input
-                  className="form-control"
-                  type="text"
-                  name="firstName"
-                  placeholder="First name"
-                  id="firstName"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                  autoFocus
-                />
-              </div>
-              <div className="errorMessage">
-                  {firstNameError && firstNameError}
-              </div>
-              <div className="form-group">
-                <label>
-                Lastname
-
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="lastName"
-                  placeholder="Last name"
-                  id="lastName"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                  {lastNameError && lastNameError}
-              </div>
-              <div className="form-group">
-                <label>
-                Username
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="userName"
-                  placeholder="User name"
-                  id="userName"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                  {userNameError && userNameError}
-              </div>
-              <div className="form-group">
-                <label>
-                Email
-
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  id="email"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                  {emailError && emailError}
-                  </div>
-              <div className="form-group">
-                <label>Password
-                </label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  id="password"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                  {passwordError && passwordError}
-              </div>
-              <div className="form-group">
-                <label>ConfirmPassword
-                </label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm password"
-                  id="confirmPassword"
-                  required
-                  onChange={this.handleOnChange}
-                  onBlur={this.handleOnBlur}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                  {confirmPasswordError && confirmPasswordError}
-              </div>
-              <div>
-                <ul className="list-inline">
-                  <li>
-                    <input
-                      className="btn btn--form"
-                      type="submit"
-                      value="Signup"
-                      disabled={this.state.isButtonDisabled}
-                    />
-                  </li>
-                </ul>
-              </div>
-            </form>
+            <input
+              className='form-control'
+              type='text'
+              name='firstName'
+              placeholder='First name'
+              id='firstName'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+              autoFocus
+            />
           </div>
+          <div className='errorMessage'>{firstNameError && firstNameError}</div>
+          <div className='form-group'>
+            <label>Lastname</label>
+            <input
+              className='form-control'
+              type='text'
+              name='lastName'
+              placeholder='Last name'
+              id='lastName'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>{lastNameError && lastNameError}</div>
+          <div className='form-group'>
+            <label>Username</label>
+            <input
+              className='form-control'
+              type='text'
+              name='userName'
+              placeholder='User name'
+              id='userName'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>{userNameError && userNameError}</div>
+          <div className='form-group'>
+            <label>Email</label>
+            <input
+              className='form-control'
+              type='text'
+              name='email'
+              placeholder='Email'
+              id='email'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>{emailError && emailError}</div>
+          <div className='form-group'>
+            <label>Password</label>
+            <input
+              className='form-control'
+              type='password'
+              name='password'
+              placeholder='Password'
+              id='password'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>{passwordError && passwordError}</div>
+          <div className='form-group'>
+            <label>ConfirmPassword</label>
+            <input
+              className='form-control'
+              type='password'
+              name='confirmPassword'
+              placeholder='Confirm password'
+              id='confirmPassword'
+              required
+              onChange={this.handleOnChange}
+              onBlur={this.handleOnBlur}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>
+            {confirmPasswordError && confirmPasswordError}
+          </div>
+          <div>
+            <ul className='list-inline'>
+              <li>
+                <input
+                  className='btn btn--form'
+                  type='submit'
+                  value='Signup'
+                  disabled={this.state.isButtonDisabled}
+                />
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
     );
   }
 }

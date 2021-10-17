@@ -90,9 +90,9 @@ export class Login extends Component {
   handleOnSubmit = async (event) => {
     console.log('hello');
     event.preventDefault();
-    
+
     try {
-      let result = await Axios.post("/api/user/login", {
+      let result = await Axios.post('/user/login', {
         email: this.state.email,
         password: this.state.password,
       });
@@ -105,10 +105,10 @@ export class Login extends Component {
       let decodedToken = jwtDecode(jwtToken);
       console.log(decodedToken);
 
-      this.props.handleUserLogin(decodedToken)
-      window.localStorage.setItem("jwtToken", jwtToken);
-      toast.success("Login success!");
-      this.props.history.push("/recipe");
+      this.props.handleUserLogin(decodedToken);
+      window.localStorage.setItem('jwtToken', jwtToken);
+      toast.success('Login success!');
+      this.props.history.push('/recipe');
     } catch (e) {
       console.log(e);
       if (e.response.status === 429) {
@@ -122,75 +122,70 @@ export class Login extends Component {
     const { email, emailError, password, passwordError, submitButtonDisabled } =
       this.state;
     return (
-      <div 
-      className="login_body"
-      style={{
-        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.5)), url(banner.png)",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        overflow:'hidden',
-        backgroundAttachment: 'fixed',
-        width:'100vw',
-        height: '100vh'
-      }}>
-    
-        
-            
-           
-            <form className="login__form" onSubmit={this.handleOnSubmit}>
-            <h1>Log in</h1>
-            <br />
-            <br />
-            <br />
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  className="form-control"
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  id="email"
-                  required
-                  value={email}
-                  onChange={this.handleOnChange}
-                  onFocus={this.handleInputOnFocus}
-                  autoFocus
-                />
-              </div>
-              <div className="errorMessage">{emailError && emailError}</div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  id="password"
-                  required
-                  value={password}
-                  onChange={this.handleOnChange}
-                  onFocus={this.handleInputOnFocus}
-                />
-              </div>
-              <div className="errorMessage">
-                {passwordError && passwordError}
-              </div>
-              <div className="m-t-lg">
-                <ul className="list-inline">
-                  <li>
-                    <input
-                      className="btn btn--form"
-                      type="submit"
-                      value="Signup"
-                      disabled={submitButtonDisabled}
-                    />
-                  </li>
-                </ul>
-              </div>
-            </form>
+      <div
+        className='login_body'
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.5)), url(banner.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          overflow: 'hidden',
+          backgroundAttachment: 'fixed',
+          width: '100vw',
+          height: '100vh',
+        }}
+      >
+        <form className='login__form' onSubmit={this.handleOnSubmit}>
+          <h1>Log in</h1>
+          <br />
+          <br />
+          <br />
+          <div className='form-group'>
+            <label>Email</label>
+            <input
+              className='form-control'
+              type='email'
+              name='email'
+              placeholder='email'
+              id='email'
+              required
+              value={email}
+              onChange={this.handleOnChange}
+              onFocus={this.handleInputOnFocus}
+              autoFocus
+            />
           </div>
-      
+          <div className='errorMessage'>{emailError && emailError}</div>
+          <div className='form-group'>
+            <label>Password</label>
+            <input
+              className='form-control'
+              type='password'
+              name='password'
+              placeholder='Password'
+              id='password'
+              required
+              value={password}
+              onChange={this.handleOnChange}
+              onFocus={this.handleInputOnFocus}
+            />
+          </div>
+          <div className='errorMessage'>{passwordError && passwordError}</div>
+          <div className='m-t-lg'>
+            <ul className='list-inline'>
+              <li>
+                <input
+                  className='btn btn--form'
+                  type='submit'
+                  value='Signup'
+                  disabled={submitButtonDisabled}
+                />
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
     );
   }
 }

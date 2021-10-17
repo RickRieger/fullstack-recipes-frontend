@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import GroceryList from './GroceryList';
 import Button from '../common/Button';
-import Axios from "../utils/Axios";
+import Axios from '../utils/Axios';
 import './Grocery.css';
 export class Grocery extends Component {
-
   state = {
     groceryList: [],
     groceryInput: '',
@@ -14,15 +13,19 @@ export class Grocery extends Component {
     editInput: '',
   };
 
-  async componentDidMount(){
-    try{
-         let allGroceryItems = await Axios.get("/api/grocery/get-all-grocery-items")
+  async componentDidMount() {
+    try {
+      let allGroceryItems = await Axios.get('/grocery/get-all-grocery-items');
 
-         this.setState({
-          groceryList: allGroceryItems.data.payload.grocery
-        }, ()=>{console.log(this.state);});
-
-    }catch(e){
+      this.setState(
+        {
+          groceryList: allGroceryItems.data.payload.grocery,
+        },
+        () => {
+          console.log(this.state);
+        }
+      );
+    } catch (e) {
       console.log(e);
     }
   }
@@ -53,7 +56,7 @@ export class Grocery extends Component {
       } else {
         try {
           let createdGroceryItem = await Axios.post(
-            `/api/grocery/create-grocery-item`,
+            `/grocery/create-grocery-item`,
             {
               grocery: this.state.groceryInput,
             }
@@ -81,7 +84,7 @@ export class Grocery extends Component {
     console.log(_id);
     try {
       let deletedGroceryItem = await Axios.delete(
-        `/api/grocery/delete-grocery-by-id/${_id}`
+        `/grocery/delete-grocery-by-id/${_id}`
       );
       let filteredArray = this.state.groceryList.filter(
         (item) => item._id !== deletedGroceryItem.data.payload._id
@@ -100,7 +103,7 @@ export class Grocery extends Component {
     try {
       console.log('working');
       let groceryIsPurchasedUpdated = await Axios.put(
-        `/api/grocery/update-purchased-by-id/${_id}`,
+        `/grocery/update-purchased-by-id/${_id}`,
         {
           purchased: !purchased,
         }
@@ -131,7 +134,7 @@ export class Grocery extends Component {
   handleEditByID2 = async () => {
     try {
       let editedGroceryItem = await Axios.put(
-        `/api/grocery/update-grocery-by-id/${this.state.editId}`,
+        `/grocery/update-grocery-by-id/${this.state.editId}`,
         {
           grocery: this.state.editInput,
         }
@@ -167,10 +170,9 @@ export class Grocery extends Component {
     });
   };
   sortByDate = async (sortOrder) => {
-  
     try {
       let sortedGroceryItems = await Axios.get(
-        `/api/grocery/get-grocery-by-sort?sort=${sortOrder}`
+        `/grocery/get-grocery-by-sort?sort=${sortOrder}`
       );
       this.setState({
         groceryList: sortedGroceryItems.data.payload,
@@ -178,12 +180,11 @@ export class Grocery extends Component {
     } catch (e) {
       console.log(e);
     }
-  
   };
   sortByPurchased = async (isPurchased) => {
     try {
       let isPurchasedGroceryArray = await Axios.get(
-        `/api/grocery/get-grocery-by-purchased?isPurchased=${isPurchased}`
+        `/grocery/get-grocery-by-purchased?isPurchased=${isPurchased}`
       );
       this.setState({
         groceryList: isPurchasedGroceryArray.data.payload,
@@ -193,114 +194,114 @@ export class Grocery extends Component {
     }
   };
   render() {
-
     return (
       <div
-      style={{
-        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.5)), url(banner.png)",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        overflow:'hidden',
-        backgroundAttachment: 'fixed',
-        width:'100vw',
-        height: '100vh'
-        // overflowY: 'scroll'
-      }}>
- 
-        <div id="container">
-          <div id="app">
-            <div className="top-container">
-            <div id="header">
-              <h1>Shopping List</h1>
-            </div>
-            <div id="input_field">
-              {this.state.canEdit ? (
-                <input
-                  className="form-control"
-                  type="text"
-                  value={this.state.editInput}
-                  onChange={this.handleEditOnChange}
-                  maxLength="26"
-                  name="editInput"
-                />
-              ) : (
-                <input
-                  className="form-control"
-                  type="text"
-                  value={this.state.groceryInput}
-                  onChange={this.handleInputOnChange}
-                  maxLength="26"
-                  placeholder="grocery item..."
-                  name="input"
-                  autoFocus
-                />
-              )}
-              {this.state.canEdit ? (
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.5)), url(banner.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          overflow: 'hidden',
+          backgroundAttachment: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          // overflowY: 'scroll'
+        }}
+      >
+        <div id='container'>
+          <div id='app'>
+            <div className='top-container'>
+              <div id='header'>
+                <h1>Shopping List</h1>
+              </div>
+              <div id='input_field'>
+                {this.state.canEdit ? (
+                  <input
+                    className='form-control'
+                    type='text'
+                    value={this.state.editInput}
+                    onChange={this.handleEditOnChange}
+                    maxLength='26'
+                    name='editInput'
+                  />
+                ) : (
+                  <input
+                    className='form-control'
+                    type='text'
+                    value={this.state.groceryInput}
+                    onChange={this.handleInputOnChange}
+                    maxLength='26'
+                    placeholder='grocery item...'
+                    name='input'
+                    autoFocus
+                  />
+                )}
+                {this.state.canEdit ? (
+                  <Button
+                    className='btn'
+                    handleClickFunction={() => this.handleEditByID2()}
+                    buttonName='edit'
+                  />
+                ) : (
+                  <Button
+                    className='btn'
+                    handleClickFunction={() => this.handleOnSubmit()}
+                    buttonName='submit'
+                  />
+                )}
+              </div>
+              <div id='input_field2'>
                 <Button
-                  className="btn"
-                  handleClickFunction={() => this.handleEditByID2()}
-                  buttonName="edit"
+                  className='btn'
+                  handleClickFunction={() => this.sortByDate('desc')}
+                  buttonName='newest-to-oldest'
                 />
-              ) : (
                 <Button
-                  className="btn"
-                  handleClickFunction={() => this.handleOnSubmit()}
-                  buttonName="submit"
+                  className='btn'
+                  handleClickFunction={() => this.sortByDate('asc')}
+                  buttonName='oldest-to-newest'
                 />
-              )}
+                <Button
+                  className='btn'
+                  handleClickFunction={() => this.sortByPurchased('true')}
+                  buttonName='purchased'
+                />
+                <Button
+                  className='btn'
+                  handleClickFunction={() => this.sortByPurchased('false')}
+                  buttonName=' not-purchased'
+                />
+              </div>
             </div>
-            <div id="input_field2">
-              <Button
-                className="btn"
-                handleClickFunction={() => this.sortByDate('desc')}
-                buttonName="newest-to-oldest"
-              />
-              <Button
-                className="btn"
-                handleClickFunction={() => this.sortByDate('asc')}
-                buttonName="oldest-to-newest"
-              />
-              <Button
-                className="btn"
-                handleClickFunction={() => this.sortByPurchased('true')}
-                buttonName="purchased"
-              />
-              <Button
-                className="btn"
-                handleClickFunction={() => this.sortByPurchased('false')}
-                buttonName=" not-purchased"
-              />
-            </div>
-            </div>
-            <div className="bottom-container">
-            <span style={{ color: 'red' }}>
-              {this.state.error && this.state.errorMessage}
-            </span>
-            <div id="task-field">
-              <div id="task-list">
-                {this.state.groceryList.map((item, index) => {
-                  return (
-                    <GroceryList
-                      key={item._id}
-                      item={item.grocery}
-                      purchased={item.purchased}
-                      handleDeleteByID={this.handleDeleteByID}
-                      handleCheckboxChecked={this.handleCheckboxChecked}
-                      handleDoneByID={this.handleDoneByID}
-                      handleEditByID1={this.handleEditByID1}
-                      inputID={item._id}
-                    />
-                  );
-                })}
+            <div className='bottom-container'>
+              <span style={{ color: 'red' }}>
+                {this.state.error && this.state.errorMessage}
+              </span>
+              <div id='task-field'>
+                <div id='task-list'>
+                  {this.state.groceryList.map((item, index) => {
+                    return (
+                      <GroceryList
+                        key={item._id}
+                        item={item.grocery}
+                        purchased={item.purchased}
+                        handleDeleteByID={this.handleDeleteByID}
+                        handleCheckboxChecked={this.handleCheckboxChecked}
+                        handleDoneByID={this.handleDoneByID}
+                        handleEditByID1={this.handleEditByID1}
+                        inputID={item._id}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
       </div>
-    )
+    );
   }
 }
 
-export default Grocery
+export default Grocery;
