@@ -1,12 +1,12 @@
-.recipe_body{
-  width:100vw;
+.recipe_body {
+  width: 100vw;
   height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-h1{
-  color:BLACK;
+h1 {
+  color: BLACK;
   text-align: center;
 }
 #recipe-container-search {
@@ -19,9 +19,9 @@ h1{
   justify-content: space-around;
   flex-direction: row;
 }
-.card-section{
-  display:flex;
-  width:60vw;
+.card-section {
+  display: flex;
+  width: 60vw;
   justify-content: space-evenly;
 }
 .recipe__form {
@@ -47,8 +47,8 @@ h1{
   margin-bottom: 4px;
   align-items: baseline;
 }
-input{
-  font-size:1.3rem;
+input {
+  font-size: 1.3rem;
 }
 label {
   font-size: 1em;
@@ -58,13 +58,13 @@ label {
 option {
   background-color: #b3b1b1;
 }
-option :checked, option :hover {
-
-background-color: darkblue;
+option :checked,
+option :hover {
+  background-color: darkblue;
 }
 .form-control {
   background-color: transparent;
-  color:black;
+  color: black;
   border-top: 0;
   border-right: 0;
   border-left: 0;
@@ -72,14 +72,14 @@ background-color: darkblue;
   font-size: 1.3rem;
 }
 ::-webkit-input-placeholder {
-  color:transparent;
+  color: transparent;
 }
 
 .form-control:focus {
   border-color: #111;
 }
-.logo-container{
-  display:flex;
+.logo-container {
+  display: flex;
   justify-content: center;
 }
 
@@ -90,31 +90,33 @@ select {
   margin-bottom: 14px;
 }
 
-.list-inline{
-  display:flex;
+.list-inline {
+  display: flex;
   justify-content: center;
 }
 .btn--form {
-  padding: .5rem 2.5rem;
-  font-size: .95rem;
+  padding: 0.5rem 2.5rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-transform: uppercase;
   color: #00ff00;
   background: #026602;
 }
 
-.btn--form:focus, .btn--form:hover {
+.btn--form:focus,
+.btn--form:hover {
   background: #014201;
 }
 
 .signup__link {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-decoration: underline;
   color: #999;
 }
 
-.signup__link:focus, .signup__link:hover {
+.signup__link:focus,
+.signup__link:hover {
   color: #787878;
 }
 /* bootstrap card */
@@ -122,7 +124,7 @@ select {
   display: flex;
   width: 315px;
   height: -moz-fit-content;
-  height: 661px;
+  height: 735px;
   padding: 1%;
   display: flex;
   flex-direction: column;
@@ -143,50 +145,50 @@ select {
   height: 7%;
   text-align: center;
 }
-.card img{
-  width:70%;
+.card img {
+  width: 70%;
   border-radius: 20px;
-  border:1px solid black;
+  border: 1px solid black;
 }
-div.card-body{
-  width:100%;
+div.card-body {
+  width: 100%;
 }
-.ingredients-title{
-font-size: 1rem;
-width:100%;
-text-align: center;
-font-size: 1vw;
-text-transform: uppercase;
-color: #00ff00;
+.ingredients-title {
+  font-size: 1rem;
+  width: 100%;
+  text-align: center;
+  font-size: 1vw;
+  text-transform: uppercase;
+  color: #00ff00;
 }
-.ingredients-container{
-  display:flex;
+.ingredients-container {
+  display: flex;
   text-align: center;
   font-family: 'Indie Flower', cursive;
   font-size: 1em;
   color: #000000;
   margin-top: 1%;
-  display:flex;
+  display: flex;
   justify-content: center;
   max-height: 145px;
-  width:100%;
-  overflow-y:auto;
+  width: 100%;
+  overflow-y: auto;
 }
 ul {
   list-style-type: none;
 }
-.button-container{
-  width:100%;
-  height:27%;
-  display:flex;
+.button-container {
+  width: 100%;
+  height: 27%;
+  display: flex;
   justify-content: space-around;
   flex-direction: column;
   justify-content: space-around;
-  align-items:center;
+  align-items: center;
 }
-.btn{
-  margin-top:40px;
-  font-size:.6vw;
+.btn {
+  margin-top: 40px;
+  font-size: 0.6vw;
   text-decoration: none;
   border: none;
   padding: 7px 40px;
@@ -198,7 +200,8 @@ ul {
   outline: none;
   transition: 0.2s all;
 }
-.btn:hover, .btn:focus{
+.btn:hover,
+.btn:focus {
   background-color: rgb(44, 44, 44);
   color: #00ff00;
 }
@@ -208,9 +211,9 @@ ul {
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
   /* Lowering the shadow */
 }
-.class-row{
-  display:flex;
-  flex-direction:row;
+.class-row {
+  display: flex;
+  flex-direction: row;
 }
 .paginate-buttons {
   width: 20%;
@@ -226,8 +229,8 @@ ul {
   /* padding: 36px; */
 }
 .btn--form--recipe {
-  margin-top:40px;
-  font-size:.6vw;
+  margin-top: 40px;
+  font-size: 0.6vw;
   text-decoration: none;
   border: none;
   padding: 7px 40px;
@@ -247,59 +250,54 @@ ul {
   background: #018301;
 }
 @media screen and (max-width: 1500px) {
-.recipe_body{
-  flex-direction: column-reverse;
-  align-items: center;
-}
-.recipe__form {
-  margin-top:20%;
-  right:1%;
-  height:fit-content;
-  width:40%;
-  background-color: rgba(95, 94, 94, 0.836);
-  padding:2%;
-  font-size:1.3em;
-  margin-top:25%;
-  
-}
-select {
+  .recipe_body {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .recipe__form {
+    margin-top: 20%;
+    right: 1%;
+    height: fit-content;
+    width: 40%;
+    background-color: rgba(95, 94, 94, 0.836);
+    padding: 2%;
+    font-size: 1.3em;
+    margin-top: 25%;
+  }
+  select {
+    height: 32px;
+  }
 
-  height: 32px;
-
+  label {
+    font-size: 1.3em;
+    text-transform: uppercase;
+    color: #00ff00;
+  }
+  #recipe-container {
+    height: 90%;
+    width: 90%;
+    margin-left: 1.5%;
+    margin-top: 10%;
+    background-color: rgba(255, 255, 255, 0.466);
+    display: flex;
+    justify-content: space-around;
+  }
+  select {
+    width: 35%;
+    font-size: 1em;
+  }
 }
-
-label {
-  font-size: 1.3em;
-  text-transform: uppercase;
-  color: #00ff00;
-}
-#recipe-container{
-  height:90%;
-  width:90%;
-  margin-left:1.5%;
-  margin-top:10%;
-  background-color: rgba(255, 255, 255, 0.466);
-  display:flex;
-  justify-content: space-around;
-}
-select {
-  width: 35%;
-  font-size: 1em;
-}
-}
-@media screen and (max-width: 1050px){
-.recipe__form{
-  margin-top:1000px;
-  width:90%;
-  padding:10%;
-  height:fit-content;
-
-}
-.btn{
-  font-size:1em;
-}
-label{
-  font-size: 1em;
-}
-
+@media screen and (max-width: 1050px) {
+  .recipe__form {
+    margin-top: 1000px;
+    width: 90%;
+    padding: 10%;
+    height: fit-content;
+  }
+  .btn {
+    font-size: 1em;
+  }
+  label {
+    font-size: 1em;
+  }
 }
