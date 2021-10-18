@@ -178,7 +178,7 @@ export class Login extends Component {
                 <input
                   className='btn btn--form'
                   type='submit'
-                  value='Signup'
+                  value='Login'
                   disabled={submitButtonDisabled}
                 />
               </li>
