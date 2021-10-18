@@ -34,8 +34,7 @@ export class CreateFriend extends Component {
       });
       toast.success('Friend Created!');
     } catch (e) {
-      console.log(e);
-      // toast.error(e.response.data.payload);
+      toast.error(e.response.data.payload);
     }
   };
   handleGetAllFriends = async () => {
@@ -45,13 +44,11 @@ export class CreateFriend extends Component {
         friendArray: getAllFriends.data.friends,
       });
     } catch (e) {
-      console.log(e);
-      // toast.error(e.response.data.payload);
+      toast.error(e.response.data.payload);
     }
   };
 
   handleUpdatedFriendData = (updatedFriend) => {
-    console.log(updatedFriend);
     let updatedFriendArray = this.state.friendArray.map((friend) => {
       if (friend._id === updatedFriend._id) {
         friend = updatedFriend;

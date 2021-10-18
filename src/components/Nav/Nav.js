@@ -3,7 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import './Nav.css';
 
 export class Nav extends Component {
+  state = {
+    open: true,
+  };
   render() {
+    console.log(this.state.open);
     return (
       <>
         <header>
@@ -11,7 +15,12 @@ export class Nav extends Component {
             <Link to='/'>
               <img id='logo' src='appetizing-logo.png' alt='logo' />
             </Link>
-            <ul className='nav-links'>
+            <ul
+              className='nav-links'
+              style={{
+                transform: this.state.open ? 'translateX(0px)' : '',
+              }}
+            >
               <li>
                 {this.props.user ? (
                   <NavLink
@@ -98,7 +107,14 @@ export class Nav extends Component {
                 )}
               </li>
             </ul>
-            <i className='fas fa-bars burger'></i>
+            <i
+              onClick={() =>
+                this.setState({
+                  open: !this.state.open,
+                })
+              }
+              className='fas fa-bars burger'
+            ></i>
           </nav>
         </header>
       </>

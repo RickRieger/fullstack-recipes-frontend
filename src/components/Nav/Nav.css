@@ -39,7 +39,8 @@ nav {
 }
 nav .burger {
   font-size: 28px;
-  margin-right: 100px;
+  margin-right: 25px;
+  cursor: pointer;
 }
 
 @media all and (max-width: 1000px) {
@@ -53,9 +54,11 @@ nav .burger {
     top: 0;
     left: 0;
     height: 100vh;
-    background-color: rgb(95, 94, 94);
-    width: 50%;
+    background-color: rgb(78, 78, 78);
+    width: 60%;
     padding: 40px;
+    transform: translateX(-500px);
+    transition: 0.5s ease-in-out;
   }
   nav .nav-links li {
     padding: 25px;
