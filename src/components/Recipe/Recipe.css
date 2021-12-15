@@ -21,7 +21,7 @@ h1 {
 }
 .card-section {
   display: flex;
-  width: 60vw;
+  width: 100vw;
   justify-content: space-evenly;
 }
 .recipe__form {
@@ -94,14 +94,6 @@ select {
   display: flex;
   justify-content: center;
 }
-.btn--form {
-  padding: 0.5rem 2.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #00ff00;
-  background: #026602;
-}
 
 .btn--form:focus,
 .btn--form:hover {
@@ -124,7 +116,7 @@ select {
   display: flex;
   width: 315px;
   height: -moz-fit-content;
-  height: 735px;
+  height: 638px;
   padding: 1%;
   display: flex;
   flex-direction: column;
@@ -135,7 +127,7 @@ select {
   border-style: solid;
   border-width: 1px;
   box-shadow: 0 0 1em rgba(52, 253, 12, 0.993);
-  margin-top: 10%;
+  margin-top: 50px;
 }
 .card-title {
   font-family: 'Indie Flower', cursive;
@@ -186,7 +178,7 @@ ul {
   justify-content: space-around;
   align-items: center;
 }
-.btn {
+/* .btn {
   margin-top: 40px;
   font-size: 0.6vw;
   text-decoration: none;
@@ -199,7 +191,7 @@ ul {
   cursor: pointer;
   outline: none;
   transition: 0.2s all;
-}
+} */
 .btn:hover,
 .btn:focus {
   background-color: rgb(44, 44, 44);
@@ -216,20 +208,15 @@ ul {
   flex-direction: row;
 }
 .paginate-buttons {
-  width: 20%;
-  position: absolute;
-  bottom: 19%;
-  left: 25.5%;
+  width: 50%;
   display: flex;
-  magrin-bottom: 100px;
-  align-content: flex-end;
-  flex-direction: row;
+  margin: auto;
+  margin-bottom: 10px;
+  align-content: center;
   justify-content: space-between;
   color: #00f300;
-  /* padding: 36px; */
 }
 .btn--form--recipe {
-  margin-top: 40px;
   font-size: 0.6vw;
   text-decoration: none;
   border: none;
@@ -249,55 +236,78 @@ ul {
 .btn--form--recipe:hover {
   background: #018301;
 }
-@media screen and (max-width: 1500px) {
+.new-search-button {
+  background-color: gold;
+}
+@media screen and (max-width: 1000px) {
   .recipe_body {
-    flex-direction: column-reverse;
+    margin: auto;
     align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
   }
   .recipe__form {
-    margin-top: 20%;
-    right: 1%;
-    height: fit-content;
-    width: 40%;
+    padding: 2em;
+    background: #fafafaa2;
+    margin-top: 55px;
+    height: 635px;
+    width: 300px;
     background-color: rgba(95, 94, 94, 0.836);
-    padding: 2%;
-    font-size: 1.3em;
-    margin-top: 25%;
+    border-radius: 30px;
+    right: auto;
   }
   select {
     height: 32px;
   }
-
-  label {
-    font-size: 1.3em;
-    text-transform: uppercase;
-    color: #00ff00;
+  h1 {
+    font-size: 1.2em;
   }
-  #recipe-container {
-    height: 90%;
-    width: 90%;
-    margin-left: 1.5%;
-    margin-top: 10%;
-    background-color: rgba(255, 255, 255, 0.466);
-    display: flex;
-    justify-content: space-around;
+  .recipe__form > div > label {
+    font-size: 0.8em;
   }
-  select {
-    width: 35%;
-    font-size: 1em;
+  .form-control {
+    font-size: 0.8em;
   }
-}
-@media screen and (max-width: 1050px) {
-  .recipe__form {
-    margin-top: 1000px;
-    width: 90%;
-    padding: 10%;
-    height: fit-content;
+  .errorMessage {
+    font-size: 0.8em;
+  }
+  .form-control-signup {
+    font-size: 0.8em;
   }
   .btn {
-    font-size: 1em;
+    font-size: 0.8em;
   }
-  label {
-    font-size: 1em;
+  label,
+  select {
+    font-size: 0.8em;
+  }
+}
+@media screen and (max-width: 530px) {
+  .card {
+    display: flex;
+    width: 315px;
+    height: 430px;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(95, 94, 94, 0.959);
+    border: 3px solid black;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 0 1em rgb(52 253 12 / 99%);
+    margin-top: 50px;
+  }
+  .card img {
+    width: 85%;
+    border-radius: 20px;
+    border: 1px solid black;
+  }
+  .paginate-buttons {
+    width: 80%;
+  }
+  .btn--form--recipe {
+    padding: 7px 29px;
   }
 }

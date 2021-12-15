@@ -49,11 +49,9 @@ export class SavedRecipes extends Component {
       let deletedRecipe = await Axios.delete(
         `/recipe//delete-recipe-by-id/${id}`
       );
-      console.log(deletedRecipe);
       let filteredArray = this.state.savedRecipes.filter(
         (item) => item._id !== deletedRecipe.data.payload._id
       );
-      console.log(filteredArray);
       this.setState({
         savedRecipes: filteredArray,
       });
@@ -87,7 +85,6 @@ export class SavedRecipes extends Component {
 
   handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(this.state.selectedFriendMobileNumber);
 
     try {
       let message = this.state.friendMessage;
@@ -110,12 +107,11 @@ export class SavedRecipes extends Component {
         showSavedRecipes: true,
       });
     } catch (e) {
-      console.log(e.response);
+      console.log(e);
     }
   };
   handleSelectChange = (event) => {
     let selectedUser = JSON.parse(event.target.value);
-    console.log(selectedUser.mobileNumber);
     this.setState(
       {
         selectedFriendFirstName: selectedUser.firstName,
@@ -128,14 +124,10 @@ export class SavedRecipes extends Component {
         friendMessage: `Hey ${selectedUser.firstName}, check this recipe out called ${this.state.label}.
       The ingredients are ${this.state.ingredients}.
       Here is a link to the complete instructions: ${this.state.recipeUrl} `,
-      },
-      () => {
-        console.log(this.state);
       }
     );
   };
   handleTextAreaEvent = (event) => {
-    console.log(event);
     this.setState({
       friendMessage: event.target.value,
     });

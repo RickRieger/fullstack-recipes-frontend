@@ -9,12 +9,16 @@ header {
 nav {
   display: flex;
   position: fixed;
+  z-index: 1;
   top: 0;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
   min-height: 9vh;
   background-color: rgb(95, 94, 94);
+}
+#logo-side-nav {
+  display: none;
 }
 #logo {
   width: 185px;
@@ -41,26 +45,38 @@ nav .burger {
   font-size: 28px;
   margin-right: 25px;
   cursor: pointer;
+  display: none;
 }
 
 @media all and (max-width: 1000px) {
   nav #burger-icon {
-    display: block important!;
+    display: block;
   }
 
   nav .nav-links {
     position: absolute;
     display: block;
+    text-align: center;
     top: 0;
     left: 0;
     height: 100vh;
     background-color: rgb(78, 78, 78);
     width: 60%;
-    padding: 40px;
-    transform: translateX(-500px);
-    transition: 0.5s ease-in-out;
+    transform: translateX(-600px);
+    transition: 0.5s ease-in;
   }
   nav .nav-links li {
-    padding: 25px;
+    padding: 16px;
+  }
+  #logo-side-nav {
+    top: 5;
+    display: block;
+    margin: auto;
+  }
+  #logo {
+    width: 115px;
+  }
+  nav .burger {
+    display: inline-block;
   }
 }

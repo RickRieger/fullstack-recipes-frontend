@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import setAxiosAuthToken from '../utils/setAxiosAuthToken';
 import './Nav.css';
 
 export class Nav extends Component {
   state = {
-    open: true,
+    open: false,
+  };
+
+  handleSideNavToggle = () => {
+    if (this.state.open) {
+      this.setState({
+        open: false,
+      });
+    }
+  };
+  handleUserLogout = () => {
+    this.handleSideNavToggle();
+    window.localStorage.removeItem('jwtToken');
+    setAxiosAuthToken(null);
+    this.setState({
+      user: null,
+    });
+    this.props.history.push('/');
   };
   render() {
-    console.log(this.state.open);
     return (
       <>
         <header>
           <nav>
-            <Link to='/'>
+            {this.props.user ? (
               <img id='logo' src='appetizing-logo.png' alt='logo' />
-            </Link>
+            ) : (
+              <Link to='/'>
+                <img id='logo' src='appetizing-logo.png' alt='logo' />
+              </Link>
+            )}
             <ul
               className='nav-links'
               style={{
@@ -22,11 +43,26 @@ export class Nav extends Component {
               }}
             >
               <li>
+                {this.state.open ? (
+                  <Link to='/'>
+                    <img
+                      id='logo-side-nav'
+                      src='appetizing-logo.png'
+                      alt='logo'
+                      onClick={() => this.handleSideNavToggle()}
+                    />
+                  </Link>
+                ) : (
+                  ''
+                )}
+              </li>
+              <li>
                 {this.props.user ? (
                   <NavLink
                     activeClassName='selected'
                     to='/recipe'
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Recipes
                   </NavLink>
@@ -40,6 +76,7 @@ export class Nav extends Component {
                     activeClassName='selected'
                     to='/grocery'
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Shopping List
                   </NavLink>
@@ -53,6 +90,7 @@ export class Nav extends Component {
                     activeClassName='selected'
                     to='/friends'
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Friends
                   </NavLink>
@@ -67,6 +105,7 @@ export class Nav extends Component {
                     activeClassName='selected'
                     to='/saved-recipes'
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Saved Recipes
                   </NavLink>
@@ -74,6 +113,7 @@ export class Nav extends Component {
                   ''
                 )}
               </li>
+
               <li>
                 {this.props.user ? (
                   ''
@@ -83,6 +123,7 @@ export class Nav extends Component {
                     activeClassName='selected'
                     onClick={this.handleOnClick2}
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Sign Up
                   </NavLink>
@@ -90,17 +131,14 @@ export class Nav extends Component {
               </li>
               <li>
                 {this.props.user ? (
-                  <NavLink
-                    activeStyle={{ borderBottom: '1px solid #00ff00' }}
-                    to='/login'
-                    onClick={this.props.handleUserLogout}
-                  >
+                  <NavLink to='/' onClick={this.props.handleUserLogout}>
                     Logout
                   </NavLink>
                 ) : (
                   <NavLink
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
                     to='/login'
+                    onClick={() => this.handleSideNavToggle()}
                   >
                     Login
                   </NavLink>

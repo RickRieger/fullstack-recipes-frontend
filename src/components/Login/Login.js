@@ -22,8 +22,7 @@ export class Login extends Component {
   componentDidMount() {
     let isAuth = checkIfUserIsAuth();
     if (isAuth) {
-      console.log('isAuth and we are good to go. The Jwt token was received!');
-      // this.props.history.push('/recipies');
+      this.props.history.push('/recipe');
     }
   }
 
@@ -88,7 +87,6 @@ export class Login extends Component {
     }
   };
   handleOnSubmit = async (event) => {
-    console.log('hello');
     event.preventDefault();
 
     try {
@@ -98,19 +96,17 @@ export class Login extends Component {
       });
       let jwtToken = result.data.payload;
 
-      console.log(jwtToken);
       //setting jwt token to out Axios instance
       setAxiosAuthToken(jwtToken);
 
       let decodedToken = jwtDecode(jwtToken);
-      console.log(decodedToken);
 
       this.props.handleUserLogin(decodedToken);
       window.localStorage.setItem('jwtToken', jwtToken);
       toast.success('Login success!');
       this.props.history.push('/recipe');
     } catch (e) {
-      console.log(e);
+      console.log('error here----', e);
       if (e.response.status === 429) {
         toast.error(e.response.data);
       } else {

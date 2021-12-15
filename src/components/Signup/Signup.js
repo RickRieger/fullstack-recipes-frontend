@@ -225,6 +225,7 @@ export class Signup extends Component {
         draggable: true,
         progress: undefined,
       });
+      this.props.history.push('/login');
     } catch (e) {
       console.log(e);
       toast.error(`${e.response.data.message}`, {
@@ -252,14 +253,11 @@ export class Signup extends Component {
       <div className='signup__body'>
         <form className='signup__form' onSubmit={this.handleOnSubmit}>
           <h1>Create an account</h1>
-          <br />
-          <h4>Sign up and have fun!</h4>
-          <br />
           <div className='form-group'>
             <label>Firstname</label>
 
             <input
-              className='form-control'
+              className='form-control-signup'
               type='text'
               name='firstName'
               placeholder='First name'
@@ -275,7 +273,7 @@ export class Signup extends Component {
           <div className='form-group'>
             <label>Lastname</label>
             <input
-              className='form-control'
+              className='form-control-signup'
               type='text'
               name='lastName'
               placeholder='Last name'
@@ -290,7 +288,7 @@ export class Signup extends Component {
           <div className='form-group'>
             <label>Username</label>
             <input
-              className='form-control'
+              className='form-control-signup'
               type='text'
               name='userName'
               placeholder='User name'
@@ -305,7 +303,7 @@ export class Signup extends Component {
           <div className='form-group'>
             <label>Email</label>
             <input
-              className='form-control'
+              className='form-control-signup'
               type='text'
               name='email'
               placeholder='Email'
@@ -320,7 +318,7 @@ export class Signup extends Component {
           <div className='form-group'>
             <label>Password</label>
             <input
-              className='form-control'
+              className='form-control-signup'
               type='password'
               name='password'
               placeholder='Password'
@@ -335,7 +333,7 @@ export class Signup extends Component {
           <div className='form-group'>
             <label>ConfirmPassword</label>
             <input
-              className='form-control'
+              className='form-control-signup'
               type='password'
               name='confirmPassword'
               placeholder='Confirm password'

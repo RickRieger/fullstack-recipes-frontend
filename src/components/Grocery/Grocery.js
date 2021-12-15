@@ -20,9 +20,6 @@ export class Grocery extends Component {
       this.setState(
         {
           groceryList: allGroceryItems.data.payload.grocery,
-        },
-        () => {
-          console.log(this.state);
         }
       );
     } catch (e) {
@@ -61,7 +58,6 @@ export class Grocery extends Component {
               grocery: this.state.groceryInput,
             }
           );
-          console.log(createdGroceryItem);
           let newArray = [
             ...this.state.groceryList,
             createdGroceryItem.data.payload,
@@ -80,8 +76,6 @@ export class Grocery extends Component {
     }
   };
   handleDeleteByID = async (_id) => {
-    console.log('clicked');
-    console.log(_id);
     try {
       let deletedGroceryItem = await Axios.delete(
         `/grocery/delete-grocery-by-id/${_id}`
@@ -89,8 +83,6 @@ export class Grocery extends Component {
       let filteredArray = this.state.groceryList.filter(
         (item) => item._id !== deletedGroceryItem.data.payload._id
       );
-      console.log(filteredArray);
-      console.log(deletedGroceryItem);
       this.setState({
         groceryList: filteredArray,
       });
@@ -99,9 +91,7 @@ export class Grocery extends Component {
     }
   };
   handleDoneByID = async (_id, purchased) => {
-    console.log(_id, purchased);
     try {
-      console.log('working');
       let groceryIsPurchasedUpdated = await Axios.put(
         `/grocery/update-purchased-by-id/${_id}`,
         {
@@ -127,9 +117,6 @@ export class Grocery extends Component {
       editInput: passedEditInput,
       editId: _id,
     });
-    console.log(this.state);
-    console.log(_id);
-    console.log(passedEditInput);
   };
   handleEditByID2 = async () => {
     try {
@@ -154,14 +141,12 @@ export class Grocery extends Component {
     } catch (e) {
       console.log(e);
     }
-    console.log(this.state);
   };
   handleInputOnChange = (event) => {
     this.setState({
       groceryInput: event.target.value,
       error: null,
     });
-    console.log(this.state.groceryInput);
   };
   handleEditOnChange = (event) => {
     this.setState({

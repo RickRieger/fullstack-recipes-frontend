@@ -5,15 +5,9 @@ import App from './App';
 // import './_base.css';
 import './index.css';
 
-
-
-
 ReactDOM.render(
   <React.StrictMode>
-    <App/>
-
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-

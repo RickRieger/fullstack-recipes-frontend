@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import axios from 'axios';
 import Axios from '../utils/Axios';
 import { toast } from 'react-toastify';
@@ -20,7 +20,22 @@ export class Recipe extends Component {
     numOfRecipes: 0,
     prevNum: 0,
     nextNum: 3,
+    displaySearchForm: true,
   };
+  componentDidMount() {
+    if (window.innerWidth < 1001) {
+      this.setState({ nextNum: 1 });
+    } else {
+      this.setState({ nextNum: 3 });
+    }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 1001) {
+        this.setState({ nextNum: 1 });
+      } else {
+        this.setState({ nextNum: 3 });
+      }
+    });
+  }
 
   handleInputOnChange = (event) => {
     this.setState({
@@ -28,42 +43,21 @@ export class Recipe extends Component {
     });
   };
   handleOptionsOnChange = (event) => {
-    console.log('the event is:', event);
-    console.log('the event.target is:', event.target);
-    console.log(
-      'the event.target.value is (with strange behavior):',
-      event.target.value
-    );
-    console.log(
-      "We can now grab the element's(event.target) attributes for example, the target's size is event.target.size:",
-      event.target.size
-    );
-    console.log("the target's name is event.target.name:", event.target.name);
-    console.log(
-      'Whoah there buddy, event.target.selectedOptions grabs an array of objects that are deeply nested in the event:',
-      event.target.selectedOptions
-    );
-
     //Here's our two variables
     let target = event.target;
     let name = target.name;
 
     //Array.from creates a new array with a call back function
     let value = Array.from(target.selectedOptions, (option) => option.value);
-    console.log('the result from Array.from is:', value);
 
     //set the state dynamically
-    this.setState(
-      {
-        [name]: value,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState({
+      [name]: value,
+    });
   };
   handleOnSubmit = async (event) => {
     event.preventDefault();
+
     try {
       let result = await this.handleSearchRecipes();
 
@@ -96,8 +90,10 @@ export class Recipe extends Component {
           progress: undefined,
         });
       }
-
-      toast.dark(`Yes!`, {
+      this.setState({
+        displaySearchForm: false,
+      });
+      toast.success(`Recipes found!`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -141,12 +137,12 @@ export class Recipe extends Component {
     }
   };
   handleAddToShoppingList = async (item) => {
-    console.log(item);
+
     try {
       const ingredients = Array.from(item.recipe.ingredients, (item) => {
         return item.text;
       });
-      console.log(ingredients);
+
 
       await Axios.post('/grocery/create-grocery-item', ingredients);
       toast.success(`Ingredients saved!`, {
@@ -169,7 +165,6 @@ export class Recipe extends Component {
       return item.text;
     });
     const directionsUrl = item.recipe.url;
-    console.log(label, image, ingredients, directionsUrl);
 
     const savedRecipe = {
       label: label,
@@ -191,6 +186,10 @@ export class Recipe extends Component {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  handleNewSearch = () => {
+    window.location.reload(false);
   };
 
   handlePrevPage = () => {
@@ -233,276 +232,279 @@ export class Recipe extends Component {
     return (
       <div className='recipe_body'>
         <div id='recipe-container-search'>
-          <div className='card-section'>
-            <RecipeList
-              prevNum={this.state.prevNum}
-              nextNum={this.state.nextNum}
-              recipes={this.state.recipes}
-              loading={this.state.loading}
-              handleTextToFriend={this.handleTextToFriend}
-              handleAddToShoppingList={this.handleAddToShoppingList}
-              handleAddToFavorites={this.handleAddToFavorites}
-            />
-          </div>
-          <div className='recipe__form'>
-            <h1>Recipe search</h1>
-            <div className='logo-container'>
-              <img src='transparent.png' alt='edamam logo' />
+          {this.state.displaySearchForm ? (
+            ''
+          ) : (
+            <div className='card-section'>
+              <RecipeList
+                prevNum={this.state.prevNum}
+                nextNum={this.state.nextNum}
+                recipes={this.state.recipes}
+                loading={this.state.loading}
+                handleTextToFriend={this.handleTextToFriend}
+                handleAddToShoppingList={this.handleAddToShoppingList}
+                handleAddToFavorites={this.handleAddToFavorites}
+              />
             </div>
-            <br />
-            <br />
-            <form onSubmit={this.handleOnSubmit}>
-              <div className='form-group'>
-                <label>Search:&nbsp;&nbsp;</label>
-                <input
-                  className='form-control'
-                  type='text'
-                  name='search'
-                  style={{ color: 'black' }}
-                  placeholder='search'
-                  id='search'
-                  onChange={this.handleInputOnChange}
-                  required
-                  autoFocus
-                />
-              </div>
+          )}
 
+          {this.state.displaySearchForm ? (
+            <div className='recipe__form'>
+              <h1>Recipe search</h1>
+              <div className='logo-container'>
+                <img src='transparent.png' alt='edamam logo' />
+              </div>
               <br />
-              <div className='form-group'>
-                <label>Diet:&nbsp;&nbsp;</label>
-                <select
-                  multiple={true}
-                  style={{ color: 'black' }}
-                  id='diet'
-                  name='diet'
-                  size='3'
-                  value={this.state.diet}
-                  onChange={this.handleOptionsOnChange}
-                >
-                  <option value=''>No selection</option>
-                  <option value='&diet=balanced'>balanced</option>
-                  <option value='&diet=high-fiber'>high-fiber</option>
-                  <option value='&diet=high-protein'>high-protein</option>
-                  <option value='&diet=low-carb'>low-carb</option>
-                </select>
-              </div>
+              <br />
+              <form onSubmit={this.handleOnSubmit}>
+                <div className='form-group'>
+                  <label>Search:&nbsp;&nbsp;</label>
+                  <input
+                    className='form-control'
+                    type='text'
+                    name='search'
+                    style={{ color: 'black' }}
+                    placeholder='search'
+                    id='search'
+                    onChange={this.handleInputOnChange}
+                    required
+                    autoFocus
+                  />
+                </div>
 
-              <div className='form-group'>
-                <label>Health:&nbsp;&nbsp;</label>
-                <select
-                  multiple={true}
-                  style={{ color: 'black' }}
-                  id='health'
-                  name='health'
-                  size='3'
-                  value={this.state.health}
-                  onChange={this.handleOptionsOnChange}
-                >
-                  <option value=''>No selection</option>
-                  <option value='&health=alcohol-free'>alcohol-free</option>
-                  <option value='&health=celery-free'>celery-free</option>
-                  <option value='&health=crustacean-free'>
-                    crustacean-free
-                  </option>
-                  <option value='&health=egg-free'>egg-free</option>
-                  <option value='&health=fish-free'>fish-free</option>
-                  <option value='&health=fodmap-free'>fodmap-free</option>
-                  <option value='&health=immuno-supportive'>
-                    immuno-supportive
-                  </option>
-                  <option value='&health=keto-friendly'>keto-friendly</option>
-                  <option value='&health=kidney-friendly'>
-                    kidney-friendly
-                  </option>
-                  <option value='&health=kosher'>kosher</option>
-                  <option value='&health=low-fat-abs'>low-fat-abs</option>
-                  <option value='&health=low-sugar'>low-sugar</option>
-                  <option value='&health=lupine-free'>lupine-free</option>
-                  <option value='&health=mediterranean'>mediterranean</option>
-                  <option value='&health=mustard-free'>mustard-free</option>
-                  <option value='&health=no-oil-added'>no-oil-added</option>
-                  <option value='&health=paleo'>paleo</option>
-                  <option value='&health=peanut-free'>peanut-free</option>
-                  <option value='&health=pescatarian'>pescatarian</option>
-                  <option value='&health=pork-free'>pork-free</option>
-                  <option value='&health=red-meat-free'>red-meat-free</option>
-                  <option value='&health=sesame-free'>sesame-free</option>
-                  <option value='&health=shellfish-free'>shellfish-free</option>
-                  <option value='&health=soy-free'>soy-free</option>
-                  <option value='&health=sugar-conscious'>
-                    sugar-conscious
-                  </option>
-                  <option value='&health=tree-nut-free'>tree-nut-free</option>
-                  <option value='&health=vegan'>vegan</option>
-                  <option value='&health=vegitarian'>vegitarian</option>
-                  <option value='&health=wheat-free'>wheat-free</option>
-                </select>
-              </div>
+                <br />
+                <div className='form-group'>
+                  <label>Diet:&nbsp;&nbsp;</label>
+                  <select
+                    multiple={true}
+                    style={{ color: 'black' }}
+                    id='diet'
+                    name='diet'
+                    size='3'
+                    value={this.state.diet}
+                    onChange={this.handleOptionsOnChange}
+                  >
+                    <option value=''>No selection</option>
+                    <option value='&diet=balanced'>balanced</option>
+                    <option value='&diet=high-fiber'>high-fiber</option>
+                    <option value='&diet=high-protein'>high-protein</option>
+                    <option value='&diet=low-carb'>low-carb</option>
+                  </select>
+                </div>
 
-              <div className='form-group'>
-                <div>
-                  <label>Cuisine Type:&nbsp;&nbsp;</label>
-                  <div style={{ color: 'black', fontSize: '16px' }}>
-                    (select one)
-                  </div>
+                <div className='form-group'>
+                  <label>Health:&nbsp;&nbsp;</label>
+                  <select
+                    multiple={true}
+                    style={{ color: 'black' }}
+                    id='health'
+                    name='health'
+                    size='3'
+                    value={this.state.health}
+                    onChange={this.handleOptionsOnChange}
+                  >
+                    <option value=''>No selection</option>
+                    <option value='&health=alcohol-free'>alcohol-free</option>
+                    <option value='&health=celery-free'>celery-free</option>
+                    <option value='&health=crustacean-free'>
+                      crustacean-free
+                    </option>
+                    <option value='&health=egg-free'>egg-free</option>
+                    <option value='&health=fish-free'>fish-free</option>
+                    <option value='&health=fodmap-free'>fodmap-free</option>
+                    <option value='&health=immuno-supportive'>
+                      immuno-supportive
+                    </option>
+                    <option value='&health=keto-friendly'>keto-friendly</option>
+                    <option value='&health=kidney-friendly'>
+                      kidney-friendly
+                    </option>
+                    <option value='&health=kosher'>kosher</option>
+                    <option value='&health=low-fat-abs'>low-fat-abs</option>
+                    <option value='&health=low-sugar'>low-sugar</option>
+                    <option value='&health=lupine-free'>lupine-free</option>
+                    <option value='&health=mediterranean'>mediterranean</option>
+                    <option value='&health=mustard-free'>mustard-free</option>
+                    <option value='&health=no-oil-added'>no-oil-added</option>
+                    <option value='&health=paleo'>paleo</option>
+                    <option value='&health=peanut-free'>peanut-free</option>
+                    <option value='&health=pescatarian'>pescatarian</option>
+                    <option value='&health=pork-free'>pork-free</option>
+                    <option value='&health=red-meat-free'>red-meat-free</option>
+                    <option value='&health=sesame-free'>sesame-free</option>
+                    <option value='&health=shellfish-free'>
+                      shellfish-free
+                    </option>
+                    <option value='&health=soy-free'>soy-free</option>
+                    <option value='&health=sugar-conscious'>
+                      sugar-conscious
+                    </option>
+                    <option value='&health=tree-nut-free'>tree-nut-free</option>
+                    <option value='&health=vegan'>vegan</option>
+                    <option value='&health=vegitarian'>vegitarian</option>
+                    <option value='&health=wheat-free'>wheat-free</option>
+                  </select>
                 </div>
-                <select
-                  style={{ color: 'black' }}
-                  id='cuisineType'
-                  name='cuisineType'
-                  size='3'
-                  value={this.state.cuisineType}
-                  onChange={this.handleInputOnChange}
-                  multiple={false}
-                >
-                  <option value=''>No selection</option>
-                  <option value='&cuisineType=American'>American</option>
-                  <option value='&cuisineType=Asian'>Asian</option>
-                  <option value='&cuisineType=British'>British</option>
-                  <option value='&cuisineType=Caribbean'>Caribbean</option>
-                  <option value='&cuisineType=Central European'>
-                    Central European
-                  </option>
-                  <option value='&cuisineType=Chinese'>Chinese</option>
-                  <option value='&cuisineType=French'>French</option>
-                  <option value='&cuisineType=Indian'>Indian</option>
-                  <option value='&cuisineType=Italian'>Italian</option>
-                  <option value='&cuisineType=Japanese'>Japanese</option>
-                  <option value='&cuisineType=Italian'>Italian</option>
-                  <option value='&cuisineType=Kosher'>Kosher</option>
-                  <option value='&cuisineType=Mediterranean'>
-                    Mediterranean
-                  </option>
-                  <option value='&cuisineType=Mexican'>Mexican</option>
-                  <option value='&cuisineType=Middle Eastern'>
-                    Middle Eastern
-                  </option>
-                  <option value='&cuisineType=Nordic'>Nordic</option>
-                  <option value='&cuisineType=South American'>
-                    South American
-                  </option>
-                  <option value='&cuisineType=South East Asian'>
-                    South East Asian
-                  </option>
-                  <option value='&cuisineType=Nordic'>Nordic</option>
-                </select>
-              </div>
-              <div className='form-group'>
-                <div>
-                  <label>Meal Type:&nbsp;&nbsp;</label>
-                  <div style={{ color: 'black', fontSize: '16px' }}>
-                    (select one)
+
+                <div className='form-group'>
+                  <div>
+                    <label>Cuisine:&nbsp;&nbsp;</label>
+                    <div style={{ color: 'black', fontSize: '16px' }}></div>
                   </div>
+                  <select
+                    style={{ color: 'black' }}
+                    id='cuisineType'
+                    name='cuisineType'
+                    size='3'
+                    value={this.state.cuisineType}
+                    onChange={this.handleInputOnChange}
+                    multiple={false}
+                  >
+                    <option value=''>No selection</option>
+                    <option value='&cuisineType=American'>American</option>
+                    <option value='&cuisineType=Asian'>Asian</option>
+                    <option value='&cuisineType=British'>British</option>
+                    <option value='&cuisineType=Caribbean'>Caribbean</option>
+                    <option value='&cuisineType=Central European'>
+                      Central European
+                    </option>
+                    <option value='&cuisineType=Chinese'>Chinese</option>
+                    <option value='&cuisineType=French'>French</option>
+                    <option value='&cuisineType=Indian'>Indian</option>
+                    <option value='&cuisineType=Italian'>Italian</option>
+                    <option value='&cuisineType=Japanese'>Japanese</option>
+                    <option value='&cuisineType=Italian'>Italian</option>
+                    <option value='&cuisineType=Kosher'>Kosher</option>
+                    <option value='&cuisineType=Mediterranean'>
+                      Mediterranean
+                    </option>
+                    <option value='&cuisineType=Mexican'>Mexican</option>
+                    <option value='&cuisineType=Middle Eastern'>
+                      Middle Eastern
+                    </option>
+                    <option value='&cuisineType=Nordic'>Nordic</option>
+                    <option value='&cuisineType=South American'>
+                      South American
+                    </option>
+                    <option value='&cuisineType=South East Asian'>
+                      South East Asian
+                    </option>
+                    <option value='&cuisineType=Nordic'>Nordic</option>
+                  </select>
                 </div>
-                <select
-                  style={{ color: 'black' }}
-                  id='mealType'
-                  name='mealType'
-                  size='3'
-                  value={this.state.mealType}
-                  onChange={this.handleInputOnChange}
-                  multiple={false}
-                >
-                  <option value='No selection'>No selection</option>
-                  <option value='&mealType=Breakfast'>Breakfast</option>
-                  <option value='&mealType=Lunch'>Lunch</option>
-                  <option value='&mealType=Snack'>Snack</option>
-                  <option value='&mealType=Teatime'>Teatime</option>
-                  <option value='&mealType=Dinner'>Dinner</option>
-                </select>
-              </div>
-              <div className='form-group'>
-                <div>
-                  <label>Dish type:&nbsp;&nbsp;</label>
-                  <div style={{ color: 'black', fontSize: '16px' }}>
-                    (select one)
+                <div className='form-group'>
+                  <div>
+                    <label>Meal:&nbsp;&nbsp;</label>
+                    <div style={{ color: 'black', fontSize: '16px' }}></div>
                   </div>
+                  <select
+                    style={{ color: 'black' }}
+                    id='mealType'
+                    name='mealType'
+                    size='3'
+                    value={this.state.mealType}
+                    onChange={this.handleInputOnChange}
+                    multiple={false}
+                  >
+                    <option value='No selection'>No selection</option>
+                    <option value='&mealType=Breakfast'>Breakfast</option>
+                    <option value='&mealType=Lunch'>Lunch</option>
+                    <option value='&mealType=Snack'>Snack</option>
+                    <option value='&mealType=Teatime'>Teatime</option>
+                    <option value='&mealType=Dinner'>Dinner</option>
+                  </select>
                 </div>
-                <select
-                  style={{ color: 'black' }}
-                  id='dishType'
-                  name='dishType'
-                  size='3'
-                  value={this.state.dishType}
-                  onChange={this.handleInputOnChange}
-                  // multiple={false}
-                >
-                  <option value=''>No selection</option>
-                  <option value='&dishType=Biscuits and Cookies'>
-                    Biscuits and Cookies
-                  </option>
-                  <option value='&dishType=Bread'>Bread</option>
-                  <option value='&dishType=Cereals'>Cereals</option>
-                  <option value='&dishType=Condiments and sauces'>
-                    Condiments and sauces
-                  </option>
-                  <option value='&dishType=Desserts'>Desserts</option>
-                  <option value='&dishType=Drinks'>Drinks</option>
-                  <option value='&dishType=Main Course'>Main Course</option>
-                  <option value='&dishType=Pancake'>Pancake</option>
-                  <option value='&dishType=Preps'>Preps</option>
-                  <option value='&dishType=Preserve'>Preserve</option>
-                  <option value='&dishType=Salad'>Salad</option>
-                  <option value='&dishType=Sandwiches'>Sandwiches</option>
-                  <option value='&dishType=Side dish'>Side dish</option>
-                  <option value='&dishType=Soup'>Soup</option>
-                  <option value='&dishType=Starter'>Starter</option>
-                  <option value='&dishType=Sweets'>Sweets</option>
-                </select>
-              </div>
-              <div className='form-group'>
-                <div>
-                  <label>Max calories:&nbsp;&nbsp;</label>
-                  <div style={{ color: 'black', fontSize: '16px' }}>
-                    (select one)
+                <div className='form-group'>
+                  <div>
+                    <label>Dish:&nbsp;&nbsp;</label>
+                    <div style={{ color: 'black', fontSize: '16px' }}></div>
                   </div>
+                  <select
+                    style={{ color: 'black' }}
+                    id='dishType'
+                    name='dishType'
+                    size='3'
+                    value={this.state.dishType}
+                    onChange={this.handleInputOnChange}
+                    // multiple={false}
+                  >
+                    <option value=''>No selection</option>
+                    <option value='&dishType=Biscuits and Cookies'>
+                      Biscuits and Cookies
+                    </option>
+                    <option value='&dishType=Bread'>Bread</option>
+                    <option value='&dishType=Cereals'>Cereals</option>
+                    <option value='&dishType=Condiments and sauces'>
+                      Condiments and sauces
+                    </option>
+                    <option value='&dishType=Desserts'>Desserts</option>
+                    <option value='&dishType=Drinks'>Drinks</option>
+                    <option value='&dishType=Main Course'>Main Course</option>
+                    <option value='&dishType=Pancake'>Pancake</option>
+                    <option value='&dishType=Preps'>Preps</option>
+                    <option value='&dishType=Preserve'>Preserve</option>
+                    <option value='&dishType=Salad'>Salad</option>
+                    <option value='&dishType=Sandwiches'>Sandwiches</option>
+                    <option value='&dishType=Side dish'>Side dish</option>
+                    <option value='&dishType=Soup'>Soup</option>
+                    <option value='&dishType=Starter'>Starter</option>
+                    <option value='&dishType=Sweets'>Sweets</option>
+                  </select>
                 </div>
-                <select
-                  style={{ color: 'black' }}
-                  id='maxCalories'
-                  name='maxCalories'
-                  size='3'
-                  value={this.state.calories}
-                  onChange={this.handleInputOnChange}
-                  multiple={false}
-                >
-                  <option value=''>No selection</option>
-                  <option value='&calories=10'>10</option>
-                  <option value='&calories=30'>30</option>
-                  <option value='&calories=100'>100</option>
-                  <option value='&calories=300'>300</option>
-                  <option value='&calories=600'>600</option>
-                  <option value='&calories=700'>700</option>
-                  <option value='&calories=800'>800</option>
-                  <option value='&calories=900'>900</option>
-                  <option value='&calories=1000'>1000</option>
-                  <option value='&calories=1200'>1200</option>
-                  <option value='&calories=1400'>1400</option>
-                  <option value='&calories=1600'>1600</option>
-                  <option value='&calories=1800'>1800</option>
-                  <option value='&calories=2000'>2000</option>
-                  <option value='&calories=2200'>2200</option>
-                  <option value='&calories=2400'>2400</option>
-                  <option value='&calories=2600'>2600</option>
-                  <option value='&calories=2800'>2800</option>
-                  <option value='&calories=3000'>3000</option>
-                </select>
-              </div>
-              <div className='m-t-lg'>
-                <ul className='list-inline'>
-                  <li>
-                    <input
-                      className='btn btn--form'
-                      type='submit'
-                      value='Search'
-                    />
-                  </li>
-                </ul>
-              </div>
-            </form>
-          </div>
+                <div className='form-group'>
+                  <div>
+                    <label>Maxcalories:&nbsp;&nbsp;</label>
+                    <div style={{ color: 'black', fontSize: '16px' }}></div>
+                  </div>
+                  <select
+                    style={{ color: 'black' }}
+                    id='maxCalories'
+                    name='maxCalories'
+                    size='3'
+                    value={this.state.calories}
+                    onChange={this.handleInputOnChange}
+                    multiple={false}
+                  >
+                    <option value=''>No selection</option>
+                    <option value='&calories=10'>10</option>
+                    <option value='&calories=30'>30</option>
+                    <option value='&calories=100'>100</option>
+                    <option value='&calories=300'>300</option>
+                    <option value='&calories=600'>600</option>
+                    <option value='&calories=700'>700</option>
+                    <option value='&calories=800'>800</option>
+                    <option value='&calories=900'>900</option>
+                    <option value='&calories=1000'>1000</option>
+                    <option value='&calories=1200'>1200</option>
+                    <option value='&calories=1400'>1400</option>
+                    <option value='&calories=1600'>1600</option>
+                    <option value='&calories=1800'>1800</option>
+                    <option value='&calories=2000'>2000</option>
+                    <option value='&calories=2200'>2200</option>
+                    <option value='&calories=2400'>2400</option>
+                    <option value='&calories=2600'>2600</option>
+                    <option value='&calories=2800'>2800</option>
+                    <option value='&calories=3000'>3000</option>
+                  </select>
+                </div>
+                <div className='m-t-lg'>
+                  <ul className='list-inline'>
+                    <li>
+                      <input
+                        className='btn btn--form'
+                        type='submit'
+                        value='Search'
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
-        {this.state.numOfRecipes !== 0 ? (
+        {!this.state.displaySearchForm ? (
           <div className='paginate-buttons '>
             <button
               className='btn--form--recipe'
@@ -510,6 +512,14 @@ export class Recipe extends Component {
               onClick={this.handlePrevPage}
             >
               Prev
+            </button>
+            <button
+              className='btn--form--recipe new-search-button'
+              onClick={() => {
+                window.location.reload(false);
+              }}
+            >
+              NewSearch
             </button>
             <button
               disabled={this.state.nextBtnDisabled}

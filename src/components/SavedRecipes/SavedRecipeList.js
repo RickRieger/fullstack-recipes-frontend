@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 function RecipeList(props) {
-  // console.log(props);
   function loadCard() {
 
     return props.recipes.slice(0, 4).map((item, index) => {

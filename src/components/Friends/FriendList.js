@@ -31,7 +31,6 @@ export class FriendList extends Component {
         lastName: this.state.lastName,
         mobileNumber: this.state.mobileNumber,
       });
-      console.log(updatedFriend);
       this.props.handleUpdatedFriendData(updatedFriend.data.payload);
       this.handleToggle();
     } catch (e) {
@@ -44,7 +43,6 @@ export class FriendList extends Component {
       let deletedFriend = await Axios.delete(
         `/friend/delete-friend-by-id/${id}`
       );
-      console.log(deletedFriend);
       this.props.handleDeleteByFriend(deletedFriend.data.payload);
     } catch (e) {
       toast.error(e.response.data.payload);
