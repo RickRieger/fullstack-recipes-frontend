@@ -17,11 +17,9 @@ export class Grocery extends Component {
     try {
       let allGroceryItems = await Axios.get('/grocery/get-all-grocery-items');
 
-      this.setState(
-        {
-          groceryList: allGroceryItems.data.payload.grocery,
-        }
-      );
+      this.setState({
+        groceryList: allGroceryItems.data.payload.grocery,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -87,7 +85,7 @@ export class Grocery extends Component {
         groceryList: filteredArray,
       });
     } catch (e) {
-      console.log(e);
+      console.log('error', e);
     }
   };
   handleDoneByID = async (_id, purchased) => {
