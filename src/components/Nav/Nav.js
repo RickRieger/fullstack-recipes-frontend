@@ -121,7 +121,6 @@ export class Nav extends Component {
                   <NavLink
                     to='/sign-up'
                     activeClassName='selected'
-                    onClick={this.handleOnClick2}
                     activeStyle={{ borderBottom: '1px solid #00ff00' }}
                     onClick={() => this.handleSideNavToggle()}
                   >

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Axios from '../utils/Axios';
 import { toast } from 'react-toastify';
@@ -137,12 +137,10 @@ export class Recipe extends Component {
     }
   };
   handleAddToShoppingList = async (item) => {
-
     try {
       const ingredients = Array.from(item.recipe.ingredients, (item) => {
         return item.text;
       });
-
 
       await Axios.post('/grocery/create-grocery-item', ingredients);
       toast.success(`Ingredients saved!`, {
